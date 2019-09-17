@@ -65,10 +65,6 @@ steps:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
 
-- task: DocFxTask@0
-  inputs:
-    solution: 'MGroup.IGA'
-
 - task: PublishCodeCoverageResults@1
   inputs:
     summaryFileLocation: $(Build.SourcesDirectory)/coverage/Cobertura/Cobertura.xml

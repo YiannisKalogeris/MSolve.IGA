@@ -2,10 +2,10 @@
 {
 	using MGroup.IGA.Interfaces;
 
-    /// <summary>
-    /// A base class for loading conditions.
-    /// </summary>
-    public class LoadingCondition : IBoundaryCondition
-    {
-    }
+	/// <summary>
+	/// A base class for loading conditions.
+	/// </summary>
+	public class LoadingCondition : IBoundaryCondition
+	{
+	}
 }

@@ -170,8 +170,8 @@ namespace MGroup.IGA.Tests
 
 			//modelReader.CreateTSplineShellsModelFromFile(IgaFileReader.TSplineShellTypes.LinearMaterial,new ShellElasticMaterial2D
 			//{
-			//	PoissonRatio = 0.3,
-			//	YoungModulus = 1e5,
+			//  PoissonRatio = 0.3,
+			//  YoungModulus = 1e5,
 			//}, thickness);
 			modelReader.CreateTSplineShellsModelFromFile();
 
@@ -255,7 +255,7 @@ namespace MGroup.IGA.Tests
 			}
 			var solverBuilder = new SkylineSolver.Builder();
 			//solverBuilder.DofOrderer = new DofOrderer(
-			//	new NodeMajorDofOrderingStrategy(), AmdReordering.CreateWithSuiteSparseAmd());
+			//  new NodeMajorDofOrderingStrategy(), AmdReordering.CreateWithSuiteSparseAmd());
 			ISolver solver = solverBuilder.BuildSolver(model);
 
 			// Structural problem provider

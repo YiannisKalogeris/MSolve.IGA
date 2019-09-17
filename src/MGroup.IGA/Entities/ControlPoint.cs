@@ -8,142 +8,142 @@
 	using MGroup.MSolve.Discretization.FreedomDegrees;
 	using MGroup.MSolve.Discretization.Interfaces;
 
-    /// <summary>
-    /// Defines a Control Point. Implements <see cref="IWeightedPoint"/>
-    /// </summary>
-    public class ControlPoint : IWeightedPoint
-    {
-        /// <summary>
-        /// List containing degree of freedom constraints.
-        /// </summary>
-        public List<Constraint> Constrains { get; } = new List<Constraint>();
+	/// <summary>
+	/// Defines a Control Point. Implements <see cref="IWeightedPoint"/>
+	/// </summary>
+	public class ControlPoint : IWeightedPoint
+	{
+		/// <summary>
+		/// List containing degree of freedom constraints.
+		/// </summary>
+		public List<Constraint> Constrains { get; } = new List<Constraint>();
 
-        /// <summary>
-        /// List containing degree of freedom constraints.
-        /// </summary>
-        public List<Constraint> Constraints => Constrains;
+		/// <summary>
+		/// List containing degree of freedom constraints.
+		/// </summary>
+		public List<Constraint> Constraints => Constrains;
 
-        /// <summary>
-        /// Dictionary containing the Elements adjacent to the <see cref="ControlPoint"/>.
-        /// </summary>
-        public Dictionary<int, Element> ElementsDictionary { get; } = new Dictionary<int, Element>();
+		/// <summary>
+		/// Dictionary containing the Elements adjacent to the <see cref="ControlPoint"/>.
+		/// </summary>
+		public Dictionary<int, Element> ElementsDictionary { get; } = new Dictionary<int, Element>();
 
-        /// <summary>
-        /// Dictionary containing the Elements adjacent to the <see cref="ControlPoint"/>.
-        /// </summary>
-        Dictionary<int, IElement> INode.ElementsDictionary => throw new NotImplementedException();
+		/// <summary>
+		/// Dictionary containing the Elements adjacent to the <see cref="ControlPoint"/>.
+		/// </summary>
+		Dictionary<int, IElement> INode.ElementsDictionary => throw new NotImplementedException();
 
-        /// <summary>
-        /// Parametric coordinate Heta of the <see cref="ControlPoint"/>.
-        /// </summary>
-        public double Heta { get; set; }
+		/// <summary>
+		/// Parametric coordinate Heta of the <see cref="ControlPoint"/>.
+		/// </summary>
+		public double Heta { get; set; }
 
-        /// <summary>
-        /// ID of the <see cref="ControlPoint"/>
-        /// </summary>
-        public int ID { get; set; }
+		/// <summary>
+		/// ID of the <see cref="ControlPoint"/>
+		/// </summary>
+		public int ID { get; set; }
 
-        /// <summary>
-        /// Parametric coordinate Ksi of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double Ksi { get; set; }
+		/// <summary>
+		/// Parametric coordinate Ksi of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double Ksi { get; set; }
 
-        /// <summary>
-        /// Dictionary that contains the patches the <see cref="ControlPoint"/> belongs to.
-        /// </summary>
-        public Dictionary<int, Patch> PatchesDictionary { get; } = new Dictionary<int, Patch>();
+		/// <summary>
+		/// Dictionary that contains the patches the <see cref="ControlPoint"/> belongs to.
+		/// </summary>
+		public Dictionary<int, Patch> PatchesDictionary { get; } = new Dictionary<int, Patch>();
 
-        /// <summary>
-        /// Dictionary that contains the patches the <see cref="ControlPoint"/> belongs to.
-        /// </summary>
-        public Dictionary<int, ISubdomain> SubdomainsDictionary => throw new NotImplementedException();
+		/// <summary>
+		/// Dictionary that contains the patches the <see cref="ControlPoint"/> belongs to.
+		/// </summary>
+		public Dictionary<int, ISubdomain> SubdomainsDictionary => throw new NotImplementedException();
 
-        /// <summary>
-        /// Weight factor of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double WeightFactor { get; set; }
+		/// <summary>
+		/// Weight factor of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double WeightFactor { get; set; }
 
-        /// <summary>
-        /// Cartesian coordinate X of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double X { get; set; }
+		/// <summary>
+		/// Cartesian coordinate X of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double X { get; set; }
 
-        /// <summary>
-        /// Cartesian coordinate Y of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double Y { get; set; }
+		/// <summary>
+		/// Cartesian coordinate Y of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double Y { get; set; }
 
-        /// <summary>
-        /// Cartesian coordinate Z of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double Z { get; set; }
+		/// <summary>
+		/// Cartesian coordinate Z of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double Z { get; set; }
 
-        /// <summary>
-        /// Parametric coordinate Zeta of the <see cref="ControlPoint"/>
-        /// </summary>
-        public double Zeta { get; set; }
+		/// <summary>
+		/// Parametric coordinate Zeta of the <see cref="ControlPoint"/>
+		/// </summary>
+		public double Zeta { get; set; }
 
-        /// <summary>
-        /// Find the patches that the <see cref="ControlPoint"/> belongs.
-        /// </summary>
-        public void BuildPatchesDictionary()
-        {
-            foreach (var element in ElementsDictionary.Values)
-            {
-                if (!PatchesDictionary.ContainsKey(element.Patch.ID))
-                    PatchesDictionary.Add(element.Patch.ID, element.Patch);
-            }
-        }
+		/// <summary>
+		/// Find the patches that the <see cref="ControlPoint"/> belongs.
+		/// </summary>
+		public void BuildPatchesDictionary()
+		{
+			foreach (var element in ElementsDictionary.Values)
+			{
+				if (!PatchesDictionary.ContainsKey(element.Patch.ID))
+					PatchesDictionary.Add(element.Patch.ID, element.Patch);
+			}
+		}
 
-        /// <summary>
-        /// Clones the <see cref="ControlPoint"/> object.
-        /// </summary>
-        /// <returns></returns>
-        public ControlPoint Clone()
-        {
-            return new ControlPoint()
-            {
-                ID = this.ID,
-                X = X,
-                Y = Y,
-                Z = Z,
-                Ksi = Ksi,
-                Heta = Heta,
-                Zeta = Zeta,
-                WeightFactor = WeightFactor
-            };
-        }
+		/// <summary>
+		/// Clones the <see cref="ControlPoint"/> object.
+		/// </summary>
+		/// <returns></returns>
+		public ControlPoint Clone()
+		{
+			return new ControlPoint()
+			{
+				ID = this.ID,
+				X = X,
+				Y = Y,
+				Z = Z,
+				Ksi = Ksi,
+				Heta = Heta,
+				Zeta = Zeta,
+				WeightFactor = WeightFactor
+			};
+		}
 
-        /// <summary>
-        /// Compares <see cref="ControlPoint"/>s based on their IDs.
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public int CompareTo(INode other) => this.ID - other.ID;
+		/// <summary>
+		/// Compares <see cref="ControlPoint"/>s based on their IDs.
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public int CompareTo(INode other) => this.ID - other.ID;
 
-        /// <summary>
-        /// Converts the <see cref="ControlPoint"/> to string.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            var header = $"{ID}: ({X}, {Y}, {Z})";
-            var constrains = new StringBuilder();
-            foreach (var c in Constrains)
-            {
-                var con = new StringBuilder();
-                if (c.DOF == StructuralDof.TranslationX) con.Append("X ,");
-                if (c.DOF == StructuralDof.TranslationY) con.Append("Y ,");
-                con.Append(c.DOF == StructuralDof.TranslationZ ? "Z ," : "?");
-                constrains.Append(con);
-            }
+		/// <summary>
+		/// Converts the <see cref="ControlPoint"/> to string.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			var header = $"{ID}: ({X}, {Y}, {Z})";
+			var constrains = new StringBuilder();
+			foreach (var c in Constrains)
+			{
+				var con = new StringBuilder();
+				if (c.DOF == StructuralDof.TranslationX) con.Append("X ,");
+				if (c.DOF == StructuralDof.TranslationY) con.Append("Y ,");
+				con.Append(c.DOF == StructuralDof.TranslationZ ? "Z ," : "?");
+				constrains.Append(con);
+			}
 
-            var constraintsDescription = constrains.ToString();
-            constraintsDescription = constraintsDescription.Length > 1
-                ? constraintsDescription.Substring(0, constraintsDescription.Length - 2)
-                : constraintsDescription;
+			var constraintsDescription = constrains.ToString();
+			constraintsDescription = constraintsDescription.Length > 1
+				? constraintsDescription.Substring(0, constraintsDescription.Length - 2)
+				: constraintsDescription;
 
-            return $"{header} - Con({constraintsDescription})";
-        }
-    }
+			return $"{header} - Con({constraintsDescription})";
+		}
+	}
 }

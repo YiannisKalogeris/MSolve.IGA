@@ -1728,12 +1728,12 @@ namespace MGroup.IGA.Tests
 			//Matrix<double> forceVectorExpected = MatlabReader.Read<double>("..\\..\\..\\InputFiles\\Beam3D.mat", "forceVector");
 
 			//for (int i = 0; i < forceVectorExpected.RowCount; i++)
-			//	Assert.True(Utilities.AreValuesEqual(forceVectorExpected.At(i, 0), model.PatchesDictionary[0].Forces[i], 1e-2));
+			//  Assert.True(Utilities.AreValuesEqual(forceVectorExpected.At(i, 0), model.PatchesDictionary[0].Forces[i], 1e-2));
 
 			//Matrix<double> displacementVectorExpected = MatlabReader.Read<double>("..\\..\\..\\InputFiles\\Beam3D.mat", "displacementVector");
 
 			//for (int i = 0; i < displacementVectorExpected.RowCount; i++)
-			//	Assert.True(Utilities.AreValuesEqual(displacementVectorExpected.At(i, 0), linearSystems[0].Solution[i], 1e-2));
+			//  Assert.True(Utilities.AreValuesEqual(displacementVectorExpected.At(i, 0), linearSystems[0].Solution[i], 1e-2));
 		}
 
 		//[Fact]

@@ -16,7 +16,7 @@ variables:
   Major: '1'
   Minor: '0'
   Patch: '$(Build.BuildId)'
-  testProject: 'MGroup.IGA.Tests'
+  testProject: 'tests/MGroup.IGA.Tests'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -64,10 +64,6 @@ steps:
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
-
-- task: DocFxTask@0
-  inputs:
-    solution: 'MGroup.IGA'
 
 - task: PublishCodeCoverageResults@1
   inputs:

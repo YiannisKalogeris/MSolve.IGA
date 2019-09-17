@@ -16,7 +16,7 @@ variables:
   Major: '1'
   Minor: '0'
   Patch: '$(Build.BuildId)'
-  testProject: 'MGroup.IGA.Tests'
+  testProject: 'tests/MGroup.IGA.Tests'
 
 steps:
 - task: DotNetCoreCLI@2

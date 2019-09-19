@@ -25,17 +25,17 @@ namespace MGroup.IGA.Elements
 	/// </summary>
 	public class TSplineElement2D : Element, IStructuralIsogeometricElement
 	{
-		protected static readonly IDofType[] controlPointDOFTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY };
-		protected IDofType[][] dofTypes;
+		protected static readonly IDofType[] ControlPointDofTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY };
+		private IDofType[][] _dofTypes;
 		private readonly IReadOnlyList<IContinuumMaterial2D> _materialsAtGaussPoints;
 
 		/// <summary>
 		/// Creates a <see cref="TSplineElement2D"/> by providing a list of materials  equal to the number of GaussPoints.
 		/// </summary>
-		/// <param name="materialsAtGaussPoints"></param>
+		/// <param name="materialsAtGaussPoints">A list of material for each of the Gauss Points of the element.</param>
 		public TSplineElement2D(IReadOnlyList<IContinuumMaterial2D> materialsAtGaussPoints)
 		{
-			this._materialsAtGaussPoints = materialsAtGaussPoints;
+			_materialsAtGaussPoints = materialsAtGaussPoints;
 		}
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace MGroup.IGA.Elements
 
 		/// <summary>
 		/// Defines the way that elemental degrees of freedom will be enumerated.
-		/// For further info see <see cref="IElementDofEnumerator"/>
+		/// For further info see <see cref="IElementDofEnumerator"/>.
 		/// </summary>
 		public IElementDofEnumerator DofEnumerator { get; set; } = new GenericDofEnumerator();
 
@@ -72,25 +72,23 @@ namespace MGroup.IGA.Elements
 		/// <summary>
 		/// Boolean property that determines whether the material used for this elements has been modified.
 		/// </summary>
-		public bool MaterialModified => throw new NotImplementedException();
+		public bool MaterialModified => false;
 
 		/// <summary>
-		/// Calculates the forces applies to an <see cref="TSplineElement2D"/> due to <see cref="MassAccelerationLoad"/>
+		/// Calculates the forces applies to an <see cref="TSplineElement2D"/> due to <see cref="MassAccelerationLoad"/>.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
-		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/></param>
-		/// <returns></returns>
-		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/>.</param>
+		/// <returns>A <see cref="double"/> array containing the forces generates due to acceleration for each degree of freedom.</returns>
+		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates displacements of knots for post-processing with Paraview.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="Matrix"/> containing the displacements for the degrees of freedom of the element.</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="double"/> array calculating the displacement of the element Knots'.
+		/// The rows of the matrix denote the knot numbering while the columns the displacements for each degree of freedom.</returns>
 		public double[,] CalculateDisplacementsForPostProcessing(Element element, Matrix localDisplacements)
 		{
 			var tsplineElement = (TSplineElement2D)element;
@@ -118,73 +116,55 @@ namespace MGroup.IGA.Elements
 		/// <summary>
 		/// This method calculates the internal forces of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
-		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom.</returns>
+		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method is used for retrieving the internal forces of the element for logging purposes.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
-		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom.</returns>
+		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Cannot be used with <see cref="TSplineElement2D"/>
+		/// Cannot be used with <see cref="TSplineElement2D"/>.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, NeumannBoundaryCondition neumann)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="neumann"><inheritdoc cref="NeumannBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, NeumannBoundaryCondition neumann) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Cannot be used with <see cref="TSplineElement2D"/>
+		/// Cannot be used with <see cref="TSplineElement2D"/>.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, NeumannBoundaryCondition neumann)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="face">The <see cref="Face"/> that the <see cref="NeumannBoundaryCondition"/> was applied to.</param>
+		/// <param name="neumann">The <see cref="NeumannBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the load due to the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, NeumannBoundaryCondition neumann) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Cannot be used with <see cref="TSplineElement2D"/>
+		/// Cannot be used with <see cref="TSplineElement2D"/>.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, PressureBoundaryCondition pressure)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="pressure"><inheritdoc cref="PressureBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, PressureBoundaryCondition pressure) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Cannot be used with <see cref="TSplineElement2D"/>
+		/// Cannot be used with <see cref="TSplineElement2D"/>.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, PressureBoundaryCondition pressure)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="face">The <see cref="Face"/> that the <see cref="PressureBoundaryCondition"/> was applied to.</param>
+		/// <param name="pressure">The <see cref="PressureBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the load due to the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, PressureBoundaryCondition pressure) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method calculates the stresses of the element.
@@ -192,52 +172,41 @@ namespace MGroup.IGA.Elements
 		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
-		/// <returns></returns>
-		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		/// <returns>A <see cref="Tuple{T1,T2}"/> of the stresses and strains of the element.</returns>
+		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Clear the material state of the element
+		/// Clear the material state of the element.
 		/// </summary>
-		public void ClearMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialState() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Clear any saved material states of the element.
 		/// </summary>
-		public void ClearMaterialStresses()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialStresses() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the damping matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of an <see cref="TSplineElement2D"/></returns>
-		public IMatrix DampingMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of an <see cref="TSplineElement2D"/>.</returns>
+		public IMatrix DampingMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Retrieves the dofs of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
-		/// <returns></returns>
+		/// <param name="element">An element of type <see cref="TSplineElement2D"/>.</param>
+		/// <returns>A <see cref="IReadOnlyList{T}"/> that contains a <see cref="IReadOnlyList{T}"/> of <see cref="IDofType"/> with degrees of freedom for each elemental <see cref="ControlPoint"/>.</returns>
 		public IReadOnlyList<IReadOnlyList<IDofType>> GetElementDofTypes(IElement element)
 		{
 			var nurbsElement = (TSplineElement2D)element;
-			dofTypes = new IDofType[nurbsElement.ControlPointsDictionary.Count][];
+			_dofTypes = new IDofType[nurbsElement.ControlPointsDictionary.Count][];
 			for (int i = 0; i < nurbsElement.ControlPointsDictionary.Count; i++)
 			{
-				dofTypes[i] = controlPointDOFTypes;
+				_dofTypes[i] = ControlPointDofTypes;
 			}
-			return dofTypes;
+
+			return _dofTypes;
 		}
 
 		/// <summary>
@@ -245,32 +214,23 @@ namespace MGroup.IGA.Elements
 		/// </summary>
 		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
 		/// <returns>An <see cref="IMatrix"/> containing the mass matrix of an <see cref="TSplineElement2D"/></returns>
-		public IMatrix MassMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		public IMatrix MassMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Resets any saved material states of the element to its initial state.
 		/// </summary>
-		public void ResetMaterialModified()
-		{
-			throw new NotImplementedException();
-		}
+		public void ResetMaterialModified() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Save the current material state of the element.
 		/// </summary>
-		public void SaveMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void SaveMaterialState() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the stiffness matrix of the element.
 		/// </summary>
 		/// <param name="element">An element of type <see cref="TSplineElement2D"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="TSplineElement2D"/></returns>
+		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="TSplineElement2D"/>.</returns>
 		public IMatrix StiffnessMatrix(IElement element)
 		{
 			var tsplineElement = (TSplineElement2D)element;

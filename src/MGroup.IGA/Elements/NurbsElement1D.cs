@@ -57,7 +57,7 @@ namespace MGroup.IGA.Elements
 		/// <summary>
 		/// Calculates the forces applies to an <see cref="NurbsElement1D"/> due to <see cref="MassAccelerationLoad"/>.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement1D"/></param>
+		/// <param name="element">An element of type <see cref="NurbsElement1D"/>.</param>
 		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/></param>
 		/// <returns>A <see cref="double"/> array containing the forces generates due to acceleration for each degree of freedom.</returns>
 		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads) => Array.Empty<double>();

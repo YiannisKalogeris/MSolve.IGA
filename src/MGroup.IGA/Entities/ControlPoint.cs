@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Entities
+namespace MGroup.IGA.Entities
 {
 	using System;
 	using System.Collections.Generic;
@@ -9,7 +9,7 @@
 	using MGroup.MSolve.Discretization.Interfaces;
 
 	/// <summary>
-	/// Defines a Control Point. Implements <see cref="IWeightedPoint"/>
+	/// Defines a Control Point. Implements <see cref="IWeightedPoint"/>.
 	/// </summary>
 	public class ControlPoint : IWeightedPoint
 	{
@@ -39,12 +39,12 @@
 		public double Heta { get; set; }
 
 		/// <summary>
-		/// ID of the <see cref="ControlPoint"/>
+		/// ID of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public int ID { get; set; }
 
 		/// <summary>
-		/// Parametric coordinate Ksi of the <see cref="ControlPoint"/>
+		/// Parametric coordinate Ksi of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double Ksi { get; set; }
 
@@ -59,27 +59,27 @@
 		public Dictionary<int, ISubdomain> SubdomainsDictionary => throw new NotImplementedException();
 
 		/// <summary>
-		/// Weight factor of the <see cref="ControlPoint"/>
+		/// Weight factor of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double WeightFactor { get; set; }
 
 		/// <summary>
-		/// Cartesian coordinate X of the <see cref="ControlPoint"/>
+		/// Cartesian coordinate X of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double X { get; set; }
 
 		/// <summary>
-		/// Cartesian coordinate Y of the <see cref="ControlPoint"/>
+		/// Cartesian coordinate Y of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double Y { get; set; }
 
 		/// <summary>
-		/// Cartesian coordinate Z of the <see cref="ControlPoint"/>
+		/// Cartesian coordinate Z of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double Z { get; set; }
 
 		/// <summary>
-		/// Parametric coordinate Zeta of the <see cref="ControlPoint"/>
+		/// Parametric coordinate Zeta of the <see cref="ControlPoint"/>.
 		/// </summary>
 		public double Zeta { get; set; }
 
@@ -98,33 +98,30 @@
 		/// <summary>
 		/// Clones the <see cref="ControlPoint"/> object.
 		/// </summary>
-		/// <returns></returns>
-		public ControlPoint Clone()
+		/// <returns>A copy of the <see cref="ControlPoint"/></returns>
+		public ControlPoint Clone() => new ControlPoint()
 		{
-			return new ControlPoint()
-			{
-				ID = this.ID,
-				X = X,
-				Y = Y,
-				Z = Z,
-				Ksi = Ksi,
-				Heta = Heta,
-				Zeta = Zeta,
-				WeightFactor = WeightFactor
-			};
-		}
+			ID = this.ID,
+			X = X,
+			Y = Y,
+			Z = Z,
+			Ksi = Ksi,
+			Heta = Heta,
+			Zeta = Zeta,
+			WeightFactor = WeightFactor,
+		};
 
 		/// <summary>
 		/// Compares <see cref="ControlPoint"/>s based on their IDs.
 		/// </summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <param name="other">A <see cref="ControlPoint"/> used for comparison with the current one.</param>
+		/// <returns>An <see cref="int"/> denoting the result of the comparison.</returns>
 		public int CompareTo(INode other) => this.ID - other.ID;
 
 		/// <summary>
 		/// Converts the <see cref="ControlPoint"/> to string.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns> A <see cref="string"/> serialization of the <see cref="ControlPoint"/> object.</returns>
 		public override string ToString()
 		{
 			var header = $"{ID}: ({X}, {Y}, {Z})";

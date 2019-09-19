@@ -1,4 +1,6 @@
-﻿namespace MGroup.IGA.Elements
+using System.Diagnostics.Contracts;
+
+namespace MGroup.IGA.Elements
 {
 	using System;
 	using System.Collections.Generic;
@@ -23,8 +25,8 @@
 	/// </summary>
 	public class NurbsElement2D : Element, IStructuralIsogeometricElement
 	{
-		protected static readonly IDofType[] controlPointDOFTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY };
-		protected IDofType[][] dofTypes;
+		protected static readonly IDofType[] ControlPointDofTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY };
+		private IDofType[][] _dofTypes;
 
 		/// <summary>
 		/// Retrieves the type of Finite Element used. Since the element is Isogeometric its type is defined as unknown.
@@ -35,7 +37,7 @@
 
 		/// <summary>
 		/// Defines the way that elemental degrees of freedom will be enumerated.
-		/// For further info see <see cref="IElementDofEnumerator"/>
+		/// For further info see <see cref="IElementDofEnumerator"/>.
 		/// </summary>
 		public IElementDofEnumerator DofEnumerator { get; set; } = new GenericDofEnumerator();
 
@@ -47,16 +49,18 @@
 		/// <summary>
 		/// Boolean property that determines whether the material used for this elements has been modified.
 		/// </summary>
-		public bool MaterialModified => throw new NotImplementedException();
+		public bool MaterialModified => false;
 
 		/// <summary>
 		/// Calculates displacements of knots for post-processing with Paraview.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="Matrix"/> containing the displacements for the degrees of freedom of the element.</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="double"/> array calculating the displacement of the element Knots'.
+		/// The rows of the matrix denote the knot numbering while the columns the displacements for each degree of freedom.</returns>
 		public double[,] CalculateDisplacementsForPostProcessing(Element element, Matrix localDisplacements)
 		{
+			Contract.Requires(element != null, "The element cannot be null");
 			var nurbsElement = (NurbsElement2D)element;
 			var elementControlPoints = nurbsElement.ControlPoints.ToArray();
 			var elemenetKnots = nurbsElement.Knots.ToArray();
@@ -80,14 +84,11 @@
 		/// <summary>
 		/// This method calculates the internal forces of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
 		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method is used for retrieving the internal forces of the element for logging purposes.
@@ -95,34 +96,30 @@
 		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsElement2D"/> as it refers to one-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="face"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge,
-			NeumannBoundaryCondition neumann)
-		{
-			throw new NotSupportedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsElement1D"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="neumann"><inheritdoc cref="NeumannBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, NeumannBoundaryCondition neumann) => throw new NotSupportedException();
 
 		/// <summary>
 		/// This method calculates the Neumann boundary condition when applied to a two-dimensional NURBS element.
 		/// </summary>
 		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <param name="face">An two dimensional boundary entity. For more info see <see cref="Face"/> </param>
-		/// <param name="neumann"><inheritdoc cref="NeumannBoundaryCondition"/></param>
-		/// <returns>A <see cref="Dictionary{int,double}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="NeumannBoundaryCondition"/></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face,
-			NeumannBoundaryCondition neumann)
+		/// <param name="face">An two dimensional boundary entity. For more info see <see cref="Face"/>.</param>
+		/// <param name="neumann"><inheritdoc cref="NeumannBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, NeumannBoundaryCondition neumann)
 		{
+			Contract.Requires(element != null, "The element cannot be null");
+			Contract.Requires(face != null, "The face cannot be null");
+			Contract.Requires(neumann != null, "The Neumann Boundary condition cannot be null");
+
 			IList<GaussLegendrePoint3D> gaussPoints =
 				CreateElementGaussPoints(element, face.Degrees[0], face.Degrees[1]);
 			Dictionary<int, double> neumannLoad = new Dictionary<int, double>();
@@ -157,71 +154,61 @@
 		/// <summary>
 		/// This method calculates the stresses of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
-		/// <returns></returns>
-		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements,
-			double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		/// <returns>A <see cref="Tuple{T1,T2}"/> of the stresses and strains of the element.</returns>
+		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Clear the material state of the element
+		/// Clear the material state of the element.
 		/// </summary>
-		public void ClearMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialState() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the damping matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of an <see cref="NurbsElement2D"/></returns>
-		public IMatrix DampingMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of an <see cref="NurbsElement2D"/>.</returns>
+		public IMatrix DampingMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Retrieves the dofs of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <returns></returns>
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <returns>A <see cref="IReadOnlyList{T}"/> that contains a <see cref="IReadOnlyList{T}"/> of <see cref="IDofType"/> with degrees of freedom for each elemental <see cref="ControlPoint"/>.</returns>
 		public IReadOnlyList<IReadOnlyList<IDofType>> GetElementDofTypes(IElement element)
 		{
+			Contract.Requires(element != null, "The element cannot be null");
 			var nurbsElement = (NurbsElement2D)element;
-			dofTypes = new IDofType[nurbsElement.ControlPointsDictionary.Count][];
+			_dofTypes = new IDofType[nurbsElement.ControlPointsDictionary.Count][];
 			for (var i = 0; i < nurbsElement.ControlPointsDictionary.Count; i++)
 			{
-				dofTypes[i] = controlPointDOFTypes;
+				_dofTypes[i] = ControlPointDofTypes;
 			}
 
-			return dofTypes;
+			return _dofTypes;
 		}
 
 		/// <summary>
 		/// Calculates the mass matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the mass matrix of an <see cref="NurbsElement2D"/></returns>
-		public IMatrix MassMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the mass matrix of an <see cref="NurbsElement2D"/>.</returns>
+		public IMatrix MassMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the stiffness matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="NurbsElement2D"/></returns>
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="NurbsElement2D"/>.</returns>
 		public IMatrix StiffnessMatrix(IElement element)
 		{
+			Contract.Requires(element != null, "The element cannot be null");
 			var nurbsElement = (NurbsElement2D)element;
 			var gaussPoints = CreateElementGaussPoints(nurbsElement);
-			var stiffnessMatrixElement = Matrix.CreateZero(nurbsElement.ControlPointsDictionary.Count * 2,
+			var stiffnessMatrixElement = Matrix.CreateZero(
+				nurbsElement.ControlPointsDictionary.Count * 2,
 				nurbsElement.ControlPointsDictionary.Count * 2);
 			var elementControlPoints = nurbsElement.ControlPoints.ToArray();
 			var nurbs = new Nurbs2D(nurbsElement, elementControlPoints);
@@ -238,8 +225,8 @@
 					jacobianMatrix[1, 1] += nurbs.NurbsDerivativeValuesHeta[k, j] * elementControlPoints[k].Y;
 				}
 
-				double jacdet = jacobianMatrix[0, 0] * jacobianMatrix[1, 1]
-								- jacobianMatrix[1, 0] * jacobianMatrix[0, 1];
+				double jacdet = (jacobianMatrix[0, 0] * jacobianMatrix[1, 1])
+								- (jacobianMatrix[1, 0] * jacobianMatrix[0, 1]);
 
 				Matrix B1 = Matrix.CreateZero(3, 4);
 
@@ -262,10 +249,9 @@
 				}
 
 				Matrix B = B1 * B2;
-				IMatrixView ElasticityMatrix = ((IContinuumMaterial2D)nurbsElement.Patch.Material).ConstitutiveMatrix;
-				Matrix stiffnessMatrixGaussPoint = B.ThisTransposeTimesOtherTimesThis(ElasticityMatrix);
-				stiffnessMatrixGaussPoint = stiffnessMatrixGaussPoint *
-											(jacdet * gaussPoints[j].WeightFactor * nurbsElement.Patch.Thickness);
+				IMatrixView elasticityMatrix = ((IContinuumMaterial2D)nurbsElement.Patch.Material).ConstitutiveMatrix;
+				Matrix stiffnessMatrixGaussPoint = B.ThisTransposeTimesOtherTimesThis(elasticityMatrix);
+				stiffnessMatrixGaussPoint *= jacdet * gaussPoints[j].WeightFactor * nurbsElement.Patch.Thickness;
 
 				for (int m = 0; m < elementControlPoints.Length * 2; m++)
 				{
@@ -294,31 +280,41 @@
 					element.Model.GlobalDofOrdering.GlobalFreeDofs[elementControlPoints[k], StructuralDof.TranslationZ];
 
 				if (neumannLoad.ContainsKey(dofIDX))
+				{
 					neumannLoad[dofIDX] += nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
 										   neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[0] *
 										   surfaceBasisVector3[0];
+				}
 				else
-					neumannLoad.Add(dofIDX,
+				{
+					neumannLoad.Add(
+						dofIDX,
 						nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
 						neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[0] * surfaceBasisVector3[0]);
+				}
 
 				if (neumannLoad.ContainsKey(dofIDY))
+				{
 					neumannLoad[dofIDY] += nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
 										   neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[1] *
 										   surfaceBasisVector3[1];
+				}
 				else
-					neumannLoad.Add(dofIDY,
-						nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
-						neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[1] * surfaceBasisVector3[1]);
+				{
+					neumannLoad.Add(
+						dofIDY,
+						nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor * neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[1] * surfaceBasisVector3[1]);
+				}
 
 				if (neumannLoad.ContainsKey(dofIDZ))
-					neumannLoad[dofIDZ] += nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
-										   neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[2] *
-										   surfaceBasisVector3[2];
+				{
+					neumannLoad[dofIDZ] += nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor * neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[2] * surfaceBasisVector3[2];
+				}
 				else
+				{
 					neumannLoad.Add(dofIDZ,
-						nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor *
-						neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[2] * surfaceBasisVector3[2]);
+						nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor * neumann.Value(xGaussPoint, yGaussPoint, zGaussPoint)[2] * surfaceBasisVector3[2]);
+				}
 			}
 		}
 
@@ -349,26 +345,26 @@
 		#endregion IStructuralIsogeometricElement
 
 		/// <summary>
-		/// Calculates the forces applies to an <see cref="NurbsElement2D"/> due to <see cref="MassAccelerationLoad"/>
+		/// Calculates the forces applies to an <see cref="NurbsElement2D"/> due to <see cref="MassAccelerationLoad"/>.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/></param>
-		/// <returns></returns>
-		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/>.</param>
+		/// <returns>A <see cref="double"/> array containing the forces generates due to acceleration for each degree of freedom.</returns>
+		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method calculates the Pressure boundary condition when applied to a two-dimensional NURBS element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsElement2D"/></param>
-		/// <param name="face">An two dimensional boundary entity. For more info see <see cref="Face"/> </param>
-		/// <param name="pressure"><inheritdoc cref="NeumannBoundaryCondition"/></param>
-		/// <returns>A <see cref="Dictionary{int,double}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="PressureBoundaryCondition"/></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face,
-					PressureBoundaryCondition pressure)
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <param name="face">An two dimensional boundary entity. For more info see <see cref="Face"/>.</param>
+		/// <param name="pressure"><inheritdoc cref="NeumannBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, PressureBoundaryCondition pressure)
 		{
+			Contract.Requires(element != null, "The element cannot be null");
+			Contract.Requires(face != null, "The face cannot be null");
+			Contract.Requires(pressure != null, "The pressure boundary condition cannot be null");
+
 			var dofs = new IDofType[] { StructuralDof.TranslationX, StructuralDof.TranslationY, StructuralDof.TranslationZ };
 
 			IList<GaussLegendrePoint3D> gaussPoints =
@@ -408,8 +404,8 @@
 
 				Vector surfaceBasisVector3 = surfaceBasisVector1.CrossProduct(surfaceBasisVector2);
 
-				double jacdet = jacobianMatrix[0, 0] * jacobianMatrix[1, 1]
-								- jacobianMatrix[1, 0] * jacobianMatrix[0, 1];
+				double jacdet = (jacobianMatrix[0, 0] * jacobianMatrix[1, 1])
+								- (jacobianMatrix[1, 0] * jacobianMatrix[0, 1]);
 
 				for (int k = 0; k < elementControlPoints.Length; k++)
 				{
@@ -424,8 +420,7 @@
 						else
 						{
 							pressureLoad.Add(dofID,
-								nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor * pressure.Value *
-								surfaceBasisVector3[m]);
+								nurbs.NurbsValues[k, j] * jacdet * gaussPoints[j].WeightFactor * pressure.Value * surfaceBasisVector3[m]);
 						}
 					}
 				}
@@ -437,39 +432,26 @@
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsElement2D"/> as it refers to one-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="face"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge,
-			PressureBoundaryCondition pressure)
-		{
-			throw new NotSupportedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsElement2D"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="pressure"><inheritdoc cref="PressureBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, PressureBoundaryCondition pressure) => throw new NotSupportedException();
 
 		/// <summary>
 		/// Clear any saved material states of the element.
 		/// </summary>
-		public void ClearMaterialStresses()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialStresses() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Resets any saved material states of the element to its initial state.
 		/// </summary>
-		public void ResetMaterialModified()
-		{
-			throw new NotImplementedException();
-		}
+		public void ResetMaterialModified() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Save the current material state of the element.
 		/// </summary>
-		public void SaveMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void SaveMaterialState() => throw new NotImplementedException();
 
 		private IList<GaussLegendrePoint3D> CreateElementGaussPoints(Element element)
 		{

@@ -159,7 +159,7 @@ namespace MGroup.IGA.Elements
 		/// <param name="element">An element of type <see cref="NurbsElement1D"/></param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
-		/// <returns> <see cref="Tuple{T1,T2}"/> of the stresses and strains of the element.</returns>
+		/// <returns>A <see cref="Tuple{T1,T2}"/> of the stresses and strains of the element.</returns>
 		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>

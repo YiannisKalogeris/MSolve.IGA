@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.SupportiveClasses
+namespace MGroup.IGA.SupportiveClasses
 {
 	using System.Collections.Generic;
 
@@ -41,10 +41,10 @@
 		/// <summary>
 		/// Create full gauss quadrature rule for a two-dimensional isogeometric element.
 		/// </summary>
-		/// <param name="degreeKsi"></param>
-		/// <param name="degreeHeta"></param>
-		/// <param name="knotsOfElement"></param>
-		/// <returns></returns>
+		/// <param name="degreeKsi">Parametric degree Ksi.</param>
+		/// <param name="degreeHeta">Parametric degree Heta.</param>
+		/// <param name="knotsOfElement">Knots of that will define the integration boundaries.</param>
+		/// <returns>An <see cref="IList{T}"/> with the genertaed <see cref="GaussLegendrePoint3D"/>.</returns>
 		public IList<GaussLegendrePoint3D> CalculateElementGaussPoints(int degreeKsi, int degreeHeta, IList<Knot> knotsOfElement)
 		{
 			IList<GaussLegendrePoint3D> gaussPointsofElement = new List<GaussLegendrePoint3D>();
@@ -103,10 +103,11 @@
 		/// <summary>
 		/// Create full gauss quadrature rule for a three-dimensional isogeometric element.
 		/// </summary>
-		/// <param name="degreeKsi"></param>
-		/// <param name="degreeHeta"></param>
-		/// <param name="knotsOfElement"></param>
-		/// <returns></returns>
+		/// <param name="degreeKsi">Parametric degree Ksi.</param>
+		/// <param name="degreeHeta">Parametric degree Heta.</param>
+		/// /// <param name="degreeZeta">Parametric degree Zeta.</param>
+		/// <param name="knotsOfElement">An <see cref="IList{T}"/> with the genertaed <see cref="GaussLegendrePoint3D"/>.</param>
+		/// <returns>An <see cref="IList{T}"/> with the genertaed <see cref="GaussLegendrePoint3D"/>.</returns>
 		public GaussLegendrePoint3D[] CalculateElementGaussPoints(int degreeKsi, int degreeHeta, int degreeZeta, IList<Knot> knotsOfElement)
 		{
 			int numberOfGPKsi = degreeKsi + 1;
@@ -157,37 +158,37 @@
 	}
 
 	/// <summary>
-	/// General three dimensional Gauss Point
+	/// General three dimensional Gauss Point.
 	/// </summary>
 	public class GaussLegendrePoint3D
 	{
 		/// <summary>
-		/// Parametric coordinate Ksi of the <see cref="GaussLegendrePoint3D"/>
+		/// Parametric coordinate Ksi of the <see cref="GaussLegendrePoint3D"/>.
 		/// </summary>
 		public double Ksi { get; private set; }
 
 		/// <summary>
-		/// Parametric coordinate Heta of the <see cref="GaussLegendrePoint3D"/>
+		/// Parametric coordinate Heta of the <see cref="GaussLegendrePoint3D"/>.
 		/// </summary>
 		public double Heta { get; private set; }
 
 		/// <summary>
-		/// Parametric coordinate Zeta of the <see cref="GaussLegendrePoint3D"/>
+		/// Parametric coordinate Zeta of the <see cref="GaussLegendrePoint3D"/>.
 		/// </summary>
 		public double Zeta { get; private set; }
 
 		/// <summary>
-		/// Weight factor of the <see cref="GaussLegendrePoint3D"/>
+		/// Weight factor of the <see cref="GaussLegendrePoint3D"/>.
 		/// </summary>
 		public double WeightFactor { get; private set; }
 
 		/// <summary>
-		/// Defines a <see cref="GaussLegendrePoint3D"/>
+		/// Defines a <see cref="GaussLegendrePoint3D"/>.
 		/// </summary>
-		/// <param name="ksi"></param>
-		/// <param name="heta"></param>
-		/// <param name="zeta"></param>
-		/// <param name="weightFactor"></param>
+		/// <param name="ksi">Parametric coordinate Ksi.</param>
+		/// <param name="heta">Parametric coordinate Heta.</param>
+		/// <param name="zeta">Parametric coordinate Zeta.</param>
+		/// <param name="weightFactor">Weight factor.</param>
 		public GaussLegendrePoint3D(double ksi, double heta, double zeta, double weightFactor)
 		{
 			this.Ksi = ksi;

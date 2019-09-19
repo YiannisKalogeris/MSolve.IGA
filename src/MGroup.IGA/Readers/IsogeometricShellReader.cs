@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Readers
+namespace MGroup.IGA.Readers
 {
 	using System;
 	using System.Collections.Generic;
@@ -31,8 +31,8 @@
 		/// <summary>
 		/// Defines a custom isogeometric shell file reader.
 		/// </summary>
-		/// <param name="modelCreator"></param>
-		/// <param name="filename"></param>
+		/// <param name="modelCreator">An <see cref="ModelCreator"/> object responsible for generating the model.</param>
+		/// <param name="filename">The name of the file to be read.</param>
 		public IsogeometricShellReader(Model model, string filename)
 		{
 			_model = model;

@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Readers
+namespace MGroup.IGA.Readers
 {
 	using System;
 	using System.Collections.Generic;
@@ -26,10 +26,10 @@
 		private int numberOfDimensions;
 
 		/// <summary>
-		/// Create an .iga file reader
+		/// Create an .iga file reader.
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="filename"></param>
+		/// <param name="model">An isogeometric <see cref="Model"/>.</param>
+		/// <param name="filename">The name of the file to be read.</param>
 		public IgaFileReader(Model model, string filename)
 		{
 			_model = model;
@@ -49,9 +49,9 @@
 		/// <summary>
 		/// Create Model from reading an .iga file.
 		/// </summary>
-		/// <param name="shellType"></param>
-		/// <param name="shellMaterial"></param>
-		/// <param name="thickness"></param>
+		/// <param name="shellType"><see cref="Enum"/> that specifies the type of the shells that will be generated.</param>
+		/// <param name="shellMaterial">The material of the shell.</param>
+		/// <param name="thickness">The tchickness of the shell.</param>
 		public void CreateTSplineShellsModelFromFile(TSplineShellType shellType = TSplineShellType.Linear, ShellElasticMaterial2D shellMaterial = null, double thickness = 1)
 		{
 			char[] delimeters = { ' ', '=', '\t' };

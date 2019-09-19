@@ -17,6 +17,8 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineElement2D"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="elementControlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineElement2D element, ControlPoint[] elementControlPoints)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -113,6 +115,8 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineKirchhoffLoveShellElement"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineKirchhoffLoveShellElement"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineKirchhoffLoveShellElement element, ControlPoint[] controlPoints)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -250,6 +254,10 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineKirchhoffLoveShellElement"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineKirchhoffLoveShellElement"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="parametricGaussPointKsi">An <see cref="IVector"/> containing Gauss points of axis Ksi.</param>
+		/// <param name="parametricGaussPointHeta">An <see cref="IVector"/> containing Gauss points of axis Heta.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineKirchhoffLoveShellElement element, ControlPoint[] controlPoints, Vector parametricGaussPointKsi, Vector parametricGaussPointHeta)
 		{
 			Vector knotValueVectorKsi = Vector.CreateZero((element.DegreeKsi + 1) * 2);
@@ -367,6 +375,10 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineKirchhoffLoveShellElementMaterial"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineKirchhoffLoveShellElementMaterial"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="parametricGaussPointKsi">An <see cref="IVector"/> containing Gauss points of axis Ksi.</param>
+		/// <param name="parametricGaussPointHeta">An <see cref="IVector"/> containing Gauss points of axis Heta.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineKirchhoffLoveShellElementMaterial element, ControlPoint[] controlPoints, Vector parametricGaussPointKsi, Vector parametricGaussPointHeta)
 		{
 			Vector knotValueVectorKsi = Vector.CreateZero((element.DegreeKsi + 1) * 2);
@@ -484,6 +496,10 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineElement2D"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineElement2D"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="parametricGaussPointKsi">An <see cref="IVector"/> containing Gauss points of axis Ksi.</param>
+		/// <param name="parametricGaussPointHeta">An <see cref="IVector"/> containing Gauss points of axis Heta.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineElement2D element, ControlPoint[] controlPoints, Vector parametricGaussPointKsi, Vector parametricGaussPointHeta)
 		{
 			Vector knotValueVectorKsi = Vector.CreateZero((element.DegreeKsi + 1) * 2);
@@ -601,6 +617,8 @@ namespace MGroup.IGA.SupportiveClasses
 		/// <summary>
 		/// Two-dimensional T-spline shape functions from Bezier extraction for <see cref="TSplineKirchhoffLoveShellElementMaterial"/>.
 		/// </summary>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="TSplineKirchhoffLoveShellElementMaterial"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
 		public ShapeTSplines2DFromBezierExtraction(TSplineKirchhoffLoveShellElementMaterial element, ControlPoint[] controlPoints)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -737,37 +755,37 @@ namespace MGroup.IGA.SupportiveClasses
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape function derivatives per axis Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineDerivativeValuesHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape function derivatives per axis Ksi.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineDerivativeValuesKsi { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape function second derivatives per axis Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineSecondDerivativesValueHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape function second derivatives per axis Ksi.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineSecondDerivativesValueKsi { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape function mixed second derivatives per axis Ksi and Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineSecondDerivativesValueKsiHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing T-Spline shape functions.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix TSplineValues { get; private set; }
 

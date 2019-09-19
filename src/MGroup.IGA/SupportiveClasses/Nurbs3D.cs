@@ -1,4 +1,6 @@
-﻿namespace MGroup.IGA.SupportiveClasses
+using MGroup.IGA.Elements;
+
+namespace MGroup.IGA.SupportiveClasses
 {
 	using System;
 	using System.Collections.Generic;
@@ -15,17 +17,17 @@
 		/// <summary>
 		/// Define 3D NURBS shape function for a collocation point.
 		/// </summary>
-		/// <param name="numberOfControlPointsKsi"></param>
-		/// <param name="numberOfControlPointsHeta"></param>
-		/// <param name="numberOfControlPointsZeta"></param>
-		/// <param name="degreeKsi"></param>
-		/// <param name="degreeHeta"></param>
-		/// <param name="degreeZeta"></param>
-		/// <param name="knotValueVectorKsi"></param>
-		/// <param name="knotValueVectorHeta"></param>
-		/// <param name="knotValueVectorZeta"></param>
-		/// <param name="controlPoints"></param>
-		/// <param name="collocationPoint"></param>
+		/// <param name="numberOfControlPointsKsi">Number of control points along parametric axis Ksi.</param>
+		/// <param name="numberOfControlPointsHeta">Number of control points along parametric axis Heta.</param>
+		/// <param name="numberOfControlPointsZeta">Number of control points along parametric axis Zeta.</param>
+		/// <param name="degreeKsi">Polynomial degree of the parametric axis Ksi.</param>
+		/// <param name="degreeHeta">Polynomial degree of the parametric axis Heta.</param>
+		/// <param name="degreeZeta">Polynomial degree of the parametric axis Zeta.</param>
+		/// <param name="knotValueVectorKsi">Knot value vector of the parametric axis Ksi.</param>
+		/// <param name="knotValueVectorHeta">Knot value vector of the parametric axis Heta.</param>
+		/// <param name="knotValueVectorZeta">Knot value vector of the parametric axis Zeta.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the <see cref="Model"/>.</param>
+		/// <param name="collocationPoint">A <see cref="NaturalPoin"/> for which the shape functions will be evaluated.</param>
 		public Nurbs3D(int numberOfControlPointsKsi, int numberOfControlPointsHeta, int numberOfControlPointsZeta,
 			int degreeKsi, int degreeHeta, int degreeZeta, Vector knotValueVectorKsi,
 			Vector knotValueVectorHeta, Vector knotValueVectorZeta, ControlPoint[] controlPoints,
@@ -273,17 +275,17 @@
 		/// <summary>
 		/// Define 3D  NURBS shape function without needing an element definition.
 		/// </summary>
-		/// <param name="numberOfControlPointsKsi"></param>
-		/// <param name="numberOfControlPointsHeta"></param>
-		/// <param name="numberOfControlPointsZeta"></param>
-		/// <param name="degreeKsi"></param>
-		/// <param name="degreeHeta"></param>
-		/// <param name="degreeZeta"></param>
-		/// <param name="knotValueVectorKsi"></param>
-		/// <param name="knotValueVectorHeta"></param>
-		/// <param name="knotValueVectorZeta"></param>
-		/// <param name="controlPoints"></param>
-		/// <param name="gaussPoints"></param>
+		/// <param name="numberOfControlPointsKsi">Number of control points along parametric axis Ksi.</param>
+		/// <param name="numberOfControlPointsHeta">Number of control points along parametric axis Heta.</param>
+		/// <param name="numberOfControlPointsZeta">Number of control points along parametric axis Zeta.</param>
+		/// <param name="degreeKsi">Polynomial degree of the parametric axis Ksi.</param>
+		/// <param name="degreeHeta">Polynomial degree of the parametric axis Heta.</param>
+		/// <param name="degreeZeta">Polynomial degree of the parametric axis Zeta.</param>
+		/// <param name="knotValueVectorKsi">Knot value vector of the parametric axis Ksi.</param>
+		/// <param name="knotValueVectorHeta">Knot value vector of the parametric axis Heta.</param>
+		/// <param name="knotValueVectorZeta">Knot value vector of the parametric axis Zeta.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="gaussPoints">A <see cref="List{T}"/> containing the control points where the shape functions will be evaluated.</param>
 		public Nurbs3D(int numberOfControlPointsKsi, int numberOfControlPointsHeta, int numberOfControlPointsZeta,
 			int degreeKsi, int degreeHeta, int degreeZeta, Vector knotValueVectorKsi,
 			Vector knotValueVectorHeta, Vector knotValueVectorZeta, ControlPoint[] controlPoints,
@@ -417,8 +419,8 @@
 		/// <summary>
 		/// Defines 3D NURBS shape functions given the control points.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="controlPoints"></param>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsElement3D"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
 		public Nurbs3D(Element element, ControlPoint[] controlPoints)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -537,11 +539,11 @@
 		/// <summary>
 		/// Defines 3D NURBS shape functions given per axis gauss points.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="controlPoints"></param>
-		/// <param name="parametricGaussPointKsi"></param>
-		/// <param name="parametricGaussPointHeta"></param>
-		/// <param name="parametricGaussPointZeta"></param>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsElement3D"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="parametricGaussPointKsi">An <see cref="IVector"/> containing Gauss points of axis Ksi.</param>
+		/// <param name="parametricGaussPointHeta">An <see cref="IVector"/> containing Gauss points of axis Heta.</param>
+		/// <param name="parametricGaussPointZeta">An <see cref="IVector"/> containing Gauss points of axis Zeta.</param>
 		public Nurbs3D(Element element, IList<ControlPoint> controlPoints, Vector parametricGaussPointKsi,
 			Vector parametricGaussPointHeta, Vector parametricGaussPointZeta)
 		{
@@ -663,61 +665,61 @@
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function derivatives per Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsDerivativeValuesHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function derivatives per Ksi.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsDerivativeValuesKsi { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function derivatives per Zeta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsDerivativeValuesZeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function second derivatives per Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function mixed second derivatives per Heta and Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueHetaZeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function second derivatives per Ksi.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueKsi { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function mixed second derivatives per Ksi and Heta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueKsiHeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function mixed second derivatives per Ksi and Zeta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueKsiZeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function second derivatives per Zeta.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsSecondDerivativeValueZeta { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape functions.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsValues { get; private set; }
 	}

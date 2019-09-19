@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Postprocessing
+namespace MGroup.IGA.Postprocessing
 {
 	using System.IO;
 
@@ -16,6 +16,12 @@
 		private readonly Model _model;
 		private readonly IVectorView _solution;
 
+		/// <summary>
+		/// Defines a Paraview FileWriter.
+		/// </summary>
+		/// <param name="model">An isogeometric <see cref="Model"/>.</param>
+		/// <param name="solution">An <see cref="IVectorView"/> containing the solution of the linear system.</param>
+		/// <param name="filename">The name of the paraview file to be generated.</param>
 		public ParaviewNurbsShells(Model model, IVectorView solution, string filename)
 		{
 			_model = model;

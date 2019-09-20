@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Postprocessing
+namespace MGroup.IGA.Postprocessing
 {
 	using System.IO;
 	using System.Linq;
@@ -20,9 +20,9 @@
 		/// <summary>
 		/// Defines a Paraview FileWriter.
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="solution"></param>
-		/// <param name="filename"></param>
+		/// <param name="model">An isogeometric <see cref="Model"/>.</param>
+		/// <param name="solution">An <see cref="IVectorView"/> containing the solution of the linear system.</param>
+		/// <param name="filename">The name of the paraview file to be generated.</param>
 		public ParaviewNurbs3D(Model model, IVectorView solution, string filename)
 		{
 			_model = model;
@@ -33,20 +33,20 @@
 		/// <summary>
 		/// Calculates the cartesian coordinate of a parametric point.
 		/// </summary>
-		/// <param name="numberOfCPKsi"></param>
-		/// <param name="degreeKsi"></param>
-		/// <param name="knotValueVectorKsi"></param>
-		/// <param name="numberOfCPHeta"></param>
-		/// <param name="degreeHeta"></param>
-		/// <param name="knotValueVectorHeta"></param>
-		/// <param name="numberOfCPZeta"></param>
-		/// <param name="degreeZeta"></param>
-		/// <param name="knotValueVectorZeta"></param>
-		/// <param name="projectiveControlPointCoordinates"></param>
-		/// <param name="ksiCoordinate"></param>
-		/// <param name="hetaCoordinate"></param>
-		/// <param name="zetaCoordinate"></param>
-		/// <returns></returns>
+		/// <param name="numberOfCPKsi">Number of <see cref="ControlPoint"/> in the parametric axis Ksi.</param>
+		/// <param name="degreeKsi">Degree of splines for the parametric axis Ksi.</param>
+		/// <param name="knotValueVectorKsi"> Knot Value Vector for the parametric axis Ksi.</param>
+		/// <param name="numberOfCPHeta">Number of <see cref="ControlPoint"/> in the parametric axis Heta.</param>
+		/// <param name="degreeHeta">Degree of splines for the parametric axis Heta.</param>
+		/// <param name="knotValueVectorHeta"> Knot Value Vector for the parametric axis Heta.</param>
+		/// <param name="numberOfCPZeta">Number of <see cref="ControlPoint"/> in the parametric axis Zeta.</param>
+		/// <param name="degreeZeta">Degree of splines for the parametric axis Zeta.</param>
+		/// <param name="knotValueVectorZeta"> Knot Value Vector for the parametric axis Zeta.</param>
+		/// <param name="projectiveControlPointCoordinates">A <see cref="double"/> two dimensional array containing the projective coordinates of the control points.</param>
+		/// <param name="ksiCoordinate">Parametric coordinate Ksi of the physical point to be evaluated.</param>
+		/// <param name="hetaCoordinate">Parametric coordinate Heta of the physical point to be evaluated.</param>
+		/// <param name="zetaCoordinate">Parametric coordinate Zeta of the physical point to be evaluated.</param>
+		/// <returns>A <see cref="Vector"/> containing the physical coordinates of the solid point calculated.</returns>
 		public static Vector SolidPoint3D(int numberOfCPKsi, int degreeKsi, Vector knotValueVectorKsi,
 			int numberOfCPHeta, int degreeHeta, Vector knotValueVectorHeta, int numberOfCPZeta, int degreeZeta,
 			Vector knotValueVectorZeta, double[,] projectiveControlPointCoordinates, double ksiCoordinate, double hetaCoordinate,

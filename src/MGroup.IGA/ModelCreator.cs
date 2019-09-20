@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA
+namespace MGroup.IGA
 {
 	using System;
 	using System.Collections.Generic;
@@ -15,54 +15,54 @@
 		/// <summary>
 		/// Defines a <see cref="ModelCreator"/>.
 		/// </summary>
-		/// <param name="model"></param>
+		/// <param name="model">An isogeometric <see cref="Model"/>.</param>
 		public ModelCreator(Model model)
 		{
 			this.Model = model;
 		}
 
 		/// <summary>
-		/// Dictionary ControlPoint IDs per Patch
+		/// Dictionary ControlPoint IDs per Patch.
 		/// </summary>
 		public Dictionary<int, int[]> ControlPointIDsDictionary { get; } = new Dictionary<int, int[]>();
 
 		/// <summary>
-		/// Dictionary ControlPoint per Patch
+		/// Dictionary ControlPoint per Patch.
 		/// </summary>
 		public Dictionary<int, ControlPoint> ControlPointsDictionary { get; } = new Dictionary<int, ControlPoint>();
 
 		/// <summary>
-		/// Dictionary Degree Heta per Patch
+		/// Dictionary Degree Heta per Patch.
 		/// </summary>
 		public Dictionary<int, int> DegreeHetaDictionary { get; } = new Dictionary<int, int>();
 
 		/// <summary>
-		/// Dictionary Degree Ksi per Patch
+		/// Dictionary Degree Ksi per Patch.
 		/// </summary>
 		public Dictionary<int, int> DegreeKsiDictionary { get; } = new Dictionary<int, int>();
 
 		/// <summary>
-		/// Dictionary Degree Zeta per Patch
+		/// Dictionary Degree Zeta per Patch.
 		/// </summary>
 		public Dictionary<int, int> DegreeZetaDictionary { get; } = new Dictionary<int, int>();
 
 		/// <summary>
-		/// Dictionary Knot Value Vector Heta per Patch
+		/// Dictionary Knot Value Vector Heta per Patch.
 		/// </summary>
 		public Dictionary<int, double[]> KnotValueVectorsHetaDictionary { get; } = new Dictionary<int, double[]>();
 
 		/// <summary>
-		/// Dictionary Knot Value Vector Ksi per Patch
+		/// Dictionary Knot Value Vector Ksi per Patch.
 		/// </summary>
 		public Dictionary<int, double[]> KnotValueVectorsKsiDictionary { get; } = new Dictionary<int, double[]>();
 
 		/// <summary>
-		/// Dictionary Knot Value Vector Zeta per Patch
+		/// Dictionary Knot Value Vector Zeta per Patch.
 		/// </summary>
 		public Dictionary<int, double[]> KnotValueVectorsZetaDictionary { get; } = new Dictionary<int, double[]>();
 
 		/// <summary>
-		/// Model material
+		/// Model material.
 		/// </summary>
 		public IFiniteElementMaterial Material { get; set; }
 
@@ -77,17 +77,17 @@
 		public int NumberOfControlPoints { get; set; }
 
 		/// <summary>
-		/// Dictionary number of control points per axis Heta per Patch
+		/// Dictionary number of control points per axis Heta per Patch.
 		/// </summary>
 		public Dictionary<int, int> NumberOfControlPointsHetaDictionary { get; } = new Dictionary<int, int>();
 
 		/// <summary>
-		/// Dictionary number of control points per axis Ksi per Patch
+		/// Dictionary number of control points per axis Ksi per Patch.
 		/// </summary>
 		public Dictionary<int, int> NumberOfControlPointsKsiDictionary { get; } = new Dictionary<int, int>();
 
 		/// <summary>
-		/// Dictionary number of control points per axis Zeta per Patch
+		/// Dictionary number of control points per axis Zeta per Patch.
 		/// </summary>
 		public Dictionary<int, int> NumberOfControlPointsZetaDictionary { get; } = new Dictionary<int, int>();
 
@@ -97,7 +97,7 @@
 		public int NumberOfDimensions { get; set; }
 
 		/// <summary>
-		/// Total number of Patches
+		/// Total number of Patches.
 		/// </summary>
 		public int NumberOfPatches { get; set; }
 

@@ -19,7 +19,7 @@ namespace MGroup.IGA.Entities
 		private readonly List<ControlPoint> controlPoints = new List<ControlPoint>();
 
 		/// <summary>
-		/// Boolean that implements equivalent property of <see cref="ISubdomain"/>
+		/// Boolean that implements equivalent property of <see cref="ISubdomain"/>.
 		/// </summary>
 		public bool ConnectivityModified { get; set; } = true;
 
@@ -44,17 +44,17 @@ namespace MGroup.IGA.Entities
 		public IReadOnlyList<ControlPoint> ControlPoints => controlPoints;
 
 		/// <summary>
-		/// Degree of patch parametric axis Heta
+		/// Degree of patch parametric axis Heta.
 		/// </summary>
 		public int DegreeHeta { get; set; }
 
 		/// <summary>
-		/// Degree of patch parametric axis Ksi
+		/// Degree of patch parametric axis Ksi.
 		/// </summary>
 		public int DegreeKsi { get; set; }
 
 		/// <summary>
-		/// Degree of patch parametric axis Zeta
+		/// Degree of patch parametric axis Zeta.
 		/// </summary>
 		public int DegreeZeta { get; set; }
 
@@ -89,7 +89,7 @@ namespace MGroup.IGA.Entities
 		public ISubdomainFreeDofOrdering FreeDofOrdering { get; set; }
 
 		/// <summary>
-		/// Patch ID
+		/// Patch ID.
 		/// </summary>
 		public int ID { get; }
 
@@ -104,7 +104,7 @@ namespace MGroup.IGA.Entities
 		public Vector KnotValueVectorKsi { get; set; }
 
 		/// <summary>
-		/// Knot Value Vector of patch parametric axis Zeta
+		/// Knot Value Vector of patch parametric axis Zeta.
 		/// </summary>
 		public Vector KnotValueVectorZeta { get; set; }
 
@@ -114,7 +114,7 @@ namespace MGroup.IGA.Entities
 		public IFiniteElementMaterial Material { get; set; }
 
 		/// <summary>
-		/// Return a list of the Controls Points of the Patchas <see cref="INode"/>
+		/// Return a list of the Controls Points of the Patchas <see cref="INode"/>.
 		/// </summary>
 		IReadOnlyList<INode> ISubdomain.Nodes => controlPoints;
 
@@ -139,7 +139,7 @@ namespace MGroup.IGA.Entities
 		public int NumberOfDimensions { get; set; }
 
 		/// <summary>
-		/// Boolean that implements equivalent property of <see cref="ISubdomain"/>
+		/// Boolean that implements equivalent property of <see cref="ISubdomain"/>.
 		/// </summary>
 		public bool StiffnessModified { get; set; }
 
@@ -149,7 +149,7 @@ namespace MGroup.IGA.Entities
 		public double Thickness { get; set; }
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public double[] CalculateElementDisplacements(IElement element, IVectorView globalDisplacementVector)
 		{
@@ -160,7 +160,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public double[] CalculateElementIncrementalConstraintDisplacements(IElement element, double constraintScalingFactor)
 		{
@@ -170,7 +170,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public void ClearMaterialStresses()
 		{
@@ -193,7 +193,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public void ExtractConstraintsFromGlobal(Table<INode, IDofType, double> globalConstraints)
 		{
@@ -212,7 +212,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public IVector GetRhsFromSolution(IVectorView solution, IVectorView dSolution)
 		{
@@ -231,7 +231,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public void ResetMaterialsModifiedProperty()
 		{
@@ -240,7 +240,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public void SaveMaterialState()
 		{
@@ -248,7 +248,7 @@ namespace MGroup.IGA.Entities
 		}
 
 		/// <summary>
-		/// Implements equivalent method of <see cref="ISubdomain"/>
+		/// Implements equivalent method of <see cref="ISubdomain"/>.
 		/// </summary>
 		public void ScaleConstraints(double scalingFactor) => Constraints.ModifyValues((u) => scalingFactor * u);
 

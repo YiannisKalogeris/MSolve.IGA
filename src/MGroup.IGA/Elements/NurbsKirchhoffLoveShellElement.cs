@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Elements
+namespace MGroup.IGA.Elements
 {
 	using System;
 	using System.Collections.Generic;
@@ -21,12 +21,12 @@
 	/// An shell element that utilizes Non-Uniform Rational B-Splines for shape functions.
 	/// It is based on Kirchhoff-Love theory. Geometrically linear formulation.
 	/// For more information please refer to <see href="https://www.sciencedirect.com/science/article/pii/S0045782509002680"/>
-	/// Authors: Dimitris Tsapetis
+	/// Authors: Dimitris Tsapetis.
 	/// </summary>
 	public class NurbsKirchhoffLoveShellElement : Element, IStructuralIsogeometricElement
 	{
-		protected static readonly IDofType[] controlPointDOFTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY, StructuralDof.TranslationZ };
-		protected IDofType[][] dofTypes;
+		protected static readonly IDofType[] ControlPointDofTypes = { StructuralDof.TranslationX, StructuralDof.TranslationY, StructuralDof.TranslationZ };
+		private IDofType[][] dofTypes;
 
 		/// <summary>
 		/// Retrieves the type of Finite Element used. Since the element is Isogeometric its type is defined as unknown.
@@ -35,7 +35,7 @@
 
 		/// <summary>
 		/// Defines the way that elemental degrees of freedom will be enumerated.
-		/// For further info see <see cref="IElementDofEnumerator"/>
+		/// For further info see <see cref="IElementDofEnumerator"/>.
 		/// </summary>
 		public IElementDofEnumerator DofEnumerator { get; set; } = new GenericDofEnumerator();
 
@@ -50,22 +50,20 @@
 		public bool MaterialModified => throw new NotImplementedException();
 
 		/// <summary>
-		/// Calculates the forces applies to an <see cref="NurbsKirchhoffLoveShellElement"/> due to <see cref="MassAccelerationLoad"/>
+		/// Calculates the forces applies to an <see cref="NurbsKirchhoffLoveShellElement"/> due to <see cref="MassAccelerationLoad"/>.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsNurbsKirchhoffLoveShellElementElement1D"/></param>
-		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/></param>
-		/// <returns></returns>
-		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <param name="loads">A list of <see cref="MassAccelerationLoad"/>. For more info see <seealso cref="MassAccelerationLoad"/>.</param>
+		/// <returns>A <see cref="double"/> array containing the forces generates due to acceleration for each degree of freedom.</returns>
+		public double[] CalculateAccelerationForces(IElement element, IList<MassAccelerationLoad> loads) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates displacements of knots for post-processing with Paraview.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
 		/// <param name="localDisplacements">A <see cref="Matrix"/> containing the displacements for the degrees of freedom of the element.</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="double"/> array calculating the displacement of the element Knots'.
+		/// The rows of the matrix denote the knot numbering while the columns the displacements for each degree of freedom.</returns>
 		public double[,] CalculateDisplacementsForPostProcessing(Element element, Matrix localDisplacements)
 		{
 			var nurbsElement = (NurbsKirchhoffLoveShellElement)element;
@@ -96,10 +94,7 @@
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
 		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		public double[] CalculateForces(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method is used for retrieving the internal forces of the element for logging purposes.
@@ -107,144 +102,109 @@
 		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <returns>A <see cref="double"/> array containing the forces all degrees of freedom</returns>
-		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		public double[] CalculateForcesForLogging(IElement element, double[] localDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsKirchhoffLoveShellElement"/> as it refers to one-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, NeumannBoundaryCondition neumann)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="neumann"><inheritdoc cref="NeumannBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, NeumannBoundaryCondition neumann) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsKirchhoffLoveShellElement"/> as it refers to two-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="face"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, NeumannBoundaryCondition neumann)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <param name="face">The <see cref="Face"/> that the <see cref="NeumannBoundaryCondition"/> was applied to.</param>
+		/// <param name="neumann">The <see cref="NeumannBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the load due to the <see cref="NeumannBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, NeumannBoundaryCondition neumann) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsKirchhoffLoveShellElement"/> as it refers to one-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="pressure"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, PressureBoundaryCondition pressure)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <param name="edge">An one dimensional boundary entity. For more info see <see cref="Edge"/>.</param>
+		/// <param name="pressure"><inheritdoc cref="PressureBoundaryCondition"/></param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> where integer values denote the degree of freedom that has a value double load value due to the enforcement of the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Edge edge, PressureBoundaryCondition pressure) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method cannot be used, combined with <see cref="NurbsKirchhoffLoveShellElement"/> as it refers to two-dimensional loads.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="edge"></param>
-		/// <param name="neumann"></param>
-		/// <returns></returns>
-		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, PressureBoundaryCondition pressure)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <param name="face">The <see cref="Face"/> that the <see cref="PressureBoundaryCondition"/> was applied to.</param>
+		/// <param name="pressure">The <see cref="PressureBoundaryCondition"/>.</param>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the load due to the <see cref="PressureBoundaryCondition"/>.</returns>
+		public Dictionary<int, double> CalculateLoadingCondition(Element element, Face face, PressureBoundaryCondition pressure) => throw new NotImplementedException();
 
 		/// <summary>
 		/// This method calculates the stresses of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
 		/// <param name="localDisplacements">A <see cref="double"/> array containing the displacements for the degrees of freedom of the element.</param>
 		/// <param name="localdDisplacements">A <see cref="double"/> array containing the displacements change for the degrees of freedom of the element.</param>
-		/// <returns></returns>
-		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements)
-		{
-			throw new NotImplementedException();
-		}
+		/// <returns>A <see cref="Tuple{T1,T2}"/> of the stresses and strains of the element.</returns>
+		public Tuple<double[], double[]> CalculateStresses(IElement element, double[] localDisplacements, double[] localdDisplacements) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Clear the material state of the element
+		/// Clear the material state of the element.
 		/// </summary>
-		public void ClearMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialState() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Clear any saved material states of the element.
 		/// </summary>
-		public void ClearMaterialStresses()
-		{
-			throw new NotImplementedException();
-		}
+		public void ClearMaterialStresses() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the damping matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of a <see cref="NurbsKirchhoffLoveShellElement"/></returns>
-		public IMatrix DampingMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the damping matrix of a <see cref="NurbsKirchhoffLoveShellElement"/>.</returns>
+		public IMatrix DampingMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Retrieves the dofs of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
-		/// <returns></returns>
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <returns>A <see cref="IReadOnlyList{T}"/> that contains a <see cref="IReadOnlyList{T}"/> of <see cref="IDofType"/> with degrees of freedom for each elemental <see cref="ControlPoint"/>.</returns>
 		public IReadOnlyList<IReadOnlyList<IDofType>> GetElementDofTypes(IElement element)
 		{
 			var nurbsElement = (NurbsKirchhoffLoveShellElement)element;
 			dofTypes = new IDofType[nurbsElement.ControlPointsDictionary.Count][];
 			for (int i = 0; i < nurbsElement.ControlPointsDictionary.Count; i++)
 			{
-				dofTypes[i] = controlPointDOFTypes;
+				dofTypes[i] = ControlPointDofTypes;
 			}
+
 			return dofTypes;
 		}
 
 		/// <summary>
 		/// Calculates the mass matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the mass matrix of an <see cref="NurbsKirchhoffLoveShellElement"/></returns>
-		public IMatrix MassMatrix(IElement element)
-		{
-			throw new NotImplementedException();
-		}
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the mass matrix of an <see cref="NurbsKirchhoffLoveShellElement"/>.</returns>
+		public IMatrix MassMatrix(IElement element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Resets any saved material states of the element to its initial state.
 		/// </summary>
-		public void ResetMaterialModified()
-		{
-			throw new NotImplementedException();
-		}
+		public void ResetMaterialModified() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Save the current material state of the element.
 		/// </summary>
-		public void SaveMaterialState()
-		{
-			throw new NotImplementedException();
-		}
+		public void SaveMaterialState() => throw new NotImplementedException();
 
 		/// <summary>
 		/// Calculates the stiffness matrix of the element.
 		/// </summary>
-		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/></param>
-		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="NurbsKirchhoffLoveShellElement"/></returns>
+		/// <param name="element">An element of type <see cref="NurbsKirchhoffLoveShellElement"/>.</param>
+		/// <returns>An <see cref="IMatrix"/> containing the stiffness matrix of an <see cref="NurbsKirchhoffLoveShellElement"/>.</returns>
 		public IMatrix StiffnessMatrix(IElement element)
 		{
 			var shellElement = (NurbsKirchhoffLoveShellElement)element;

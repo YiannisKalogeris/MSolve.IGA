@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Entities
+namespace MGroup.IGA.Entities
 {
 	using System;
 	using System.Collections.Generic;
@@ -37,7 +37,7 @@
 		public Dictionary<int, Element> ElementsDictionary { get; } = new Dictionary<int, Element>();
 
 		/// <summary>
-		/// Edge ID
+		/// Edge ID.
 		/// </summary>
 		public int ID { get; set; }
 
@@ -64,7 +64,7 @@
 		/// <summary>
 		/// Calculates the loads applied to the edge.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the loads.</returns>
 		public Dictionary<int, double> CalculateLoads()
 		{
 			Dictionary<int, double> edgeLoad = new Dictionary<int, double>();
@@ -127,6 +127,7 @@
 		private void CalculatePressure(LoadProvider provider, PressureBoundaryCondition condition, Dictionary<int, double> load)
 		{
 			foreach (Element element in ElementsDictionary.Values)
+			{
 				foreach (int dof in provider.LoadPressure(element, this, condition).Keys)
 				{
 					if (load.ContainsKey(dof))
@@ -138,6 +139,7 @@
 						load.Add(dof, provider.LoadPressure(element, this, condition)[dof]);
 					}
 				}
+			}
 		}
 
 		private void CreateEdgeElements()

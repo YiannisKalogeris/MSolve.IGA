@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Entities
+namespace MGroup.IGA.Entities
 {
 	using System;
 	using System.Collections.Generic;
@@ -15,17 +15,17 @@
 	public class Face : Boundary
 	{
 		/// <summary>
-		/// <see cref="int"/> array with size two that contains the polynomial degrees of the two parametric directions of the <see cref="Face"/>
+		/// <see cref="int"/> array with size two that contains the polynomial degrees of the two parametric directions of the <see cref="Face"/>.
 		/// </summary>
 		public int[] Degrees { get; } = new int[2];
 
 		/// <summary>
-		/// Dictionary that contains the Knot Value vectors for the two parametric directions of the <see cref="Face"/>
+		/// Dictionary that contains the Knot Value vectors for the two parametric directions of the <see cref="Face"/>.
 		/// </summary>
 		public Dictionary<int, Vector> KnotValueVectors { get; } = new Dictionary<int, Vector>();
 
 		/// <summary>
-		/// The patch that contains the <see cref="Face"/>
+		/// The patch that contains the <see cref="Face"/>.
 		/// </summary>
 		public Patch Patch { get; set; }
 
@@ -40,12 +40,12 @@
 		public Dictionary<int, Dictionary<IDofType, int>> ControlPointDOFsDictionary { get; } = new Dictionary<int, Dictionary<IDofType, int>>();
 
 		/// <summary>
-		/// Dictionary that contains the <see cref="ControlPoint"/>s of the <see cref="Face"/>
+		/// Dictionary that contains the <see cref="ControlPoint"/>s of the <see cref="Face"/>.
 		/// </summary>
 		public Dictionary<int, ControlPoint> ControlPointsDictionary { get; } = new Dictionary<int, ControlPoint>();
 
 		/// <summary>
-		/// Dictionary of the elements of the <see cref="Face"/>
+		/// Dictionary of the elements of the <see cref="Face"/>.
 		/// </summary>
 		public Dictionary<int, Element> ElementsDictionary { get; } = new Dictionary<int, Element>();
 
@@ -57,7 +57,7 @@
 		/// <summary>
 		/// Calculate the loads applied to the face.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="Dictionary{TKey,TValue}"/> whose keys are the numbering of the degree of freedom and values are the magnitude of the load.</returns>
 		public Dictionary<int, double> CalculateLoads()
 		{
 			Dictionary<int, double> faceLoad = new Dictionary<int, double>();
@@ -76,6 +76,7 @@
 					}
 				}
 			}
+
 			return faceLoad;
 		}
 

@@ -1,4 +1,6 @@
-﻿namespace MGroup.IGA.SupportiveClasses
+using MGroup.IGA.Elements;
+
+namespace MGroup.IGA.SupportiveClasses
 {
 	using System;
 	using System.Collections.Generic;
@@ -10,15 +12,15 @@
 	using MGroup.LinearAlgebra.Vectors;
 
 	/// <summary>
-	/// One-dimensional NURBS shape functions
+	/// One-dimensional NURBS shape functions.
 	/// </summary>
 	public class Nurbs1D
 	{
 		/// <summary>
 		/// Defines an 1D NURBS shape function for an element.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="controlPoints"></param>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsElement1D"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
 		public Nurbs1D(Element element, ControlPoint[] controlPoints)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -61,9 +63,9 @@
 		/// <summary>
 		/// Defines an 1D NURBS shape function for an edge element.
 		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="controlPoints"></param>
-		/// <param name="edge"></param>
+		/// <param name="element">An <see cref="Element"/> of type <see cref="NurbsElement1D"/>.</param>
+		/// <param name="controlPoints">A <see cref="List{T}"/> containing the control points of the element.</param>
+		/// <param name="edge">The one-dimensional boundary entity that contains the <paramref name="element"/>.</param>
 		public Nurbs1D(Element element, IList<ControlPoint> controlPoints, Edge edge)
 		{
 			GaussQuadrature gauss = new GaussQuadrature();
@@ -106,13 +108,13 @@
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape function derivatives.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsDerivativeValuesKsi { get; private set; }
 
 		/// <summary>
 		/// <see cref="Matrix"/> containing NURBS shape functions.
-		/// Row represent Control Points, while columns Gauss Points
+		/// Row represent Control Points, while columns Gauss Points.
 		/// </summary>
 		public Matrix NurbsValues { get; private set; }
 	}

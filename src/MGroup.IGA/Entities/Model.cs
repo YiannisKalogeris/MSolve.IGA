@@ -1,4 +1,4 @@
-﻿namespace MGroup.IGA.Entities
+namespace MGroup.IGA.Entities
 {
 	using System;
 	using System.Collections.Generic;
@@ -17,7 +17,7 @@
 	/// </summary>
 	public class Model : IModel
 	{
-		private IGlobalFreeDofOrdering globalDofOrdering;
+		private IGlobalFreeDofOrdering _globalDofOrdering;
 
 		/// <summary>
 		/// <see cref="Table{TRow,TColumn,TValue}"/> that contains the constrained degree of freedom and the value of their constrains.
@@ -26,7 +26,7 @@
 			new Table<INode, IDofType, double>();
 
 		/// <summary>
-		/// Return an <see cref="IEnumerable{ControlPoint}"/> with the Control Points of the <see cref="Model"/>
+		/// Return an <see cref="IEnumerable{ControlPoint}"/> with the Control Points of the <see cref="Model"/>.
 		/// </summary>
 		public IEnumerable<ControlPoint> ControlPoints => ControlPointsDictionary.Values;
 
@@ -55,10 +55,10 @@
 		/// </summary>
 		public IGlobalFreeDofOrdering GlobalDofOrdering
 		{
-			get => globalDofOrdering;
+			get => _globalDofOrdering;
 			set
 			{
-				globalDofOrdering = value;
+				_globalDofOrdering = value;
 				foreach (var patch in Patches)
 				{
 					patch.FreeDofOrdering = GlobalDofOrdering.SubdomainDofOrderings[patch];
@@ -78,7 +78,7 @@
 			new List<IMassAccelerationHistoryLoad>();
 
 		/// <summary>
-		/// Return an <see cref="IReadOnlyList{ControlPoint}"/> with the Control Points of the <see cref="Model"/> as <see cref="INode"/>
+		/// Return an <see cref="IReadOnlyList{ControlPoint}"/> with the Control Points of the <see cref="Model"/> as <see cref="INode"/>.
 		/// </summary>
 		IReadOnlyList<INode> IModel.Nodes => ControlPointsDictionary.Values.ToList();
 
@@ -88,7 +88,7 @@
 		public int NumberOfInterfaces { get; set; }
 
 		/// <summary>
-		/// Number of patches of the <see cref="Model"/>
+		/// Number of patches of the <see cref="Model"/>.
 		/// </summary>
 		public int NumberOfPatches { get; set; }
 
@@ -108,7 +108,7 @@
 		IReadOnlyList<ISubdomain> IModel.Subdomains => PatchesDictionary.Values.ToList();
 
 		/// <summary>
-		/// List of time dependent loads added to the <see cref="Model"/>
+		/// List of time dependent loads added to the <see cref="Model"/>.
 		/// </summary>
 		public IList<ITimeDependentNodalLoad> TimeDependentNodalLoads { get; private set; } =
 			new List<ITimeDependentNodalLoad>();
@@ -116,7 +116,7 @@
 		/// <summary>
 		/// Assigns nodal loads of the <see cref="Model"/>.
 		/// </summary>
-		/// <param name="distributeNodalLoads"></param>
+		/// <param name="distributeNodalLoads"><inheritdoc cref="NodalLoadsToSubdomainsDistributor"/></param>
 		public void AssignLoads(NodalLoadsToSubdomainsDistributor distributeNodalLoads)
 		{
 			foreach (var patch in PatchesDictionary.Values) patch.Forces.Clear();
@@ -125,9 +125,9 @@
 		}
 
 		/// <summary>
-		/// Assigns mass acceleration loads of the time step to the <see cref="Model"/>
+		/// Assigns mass acceleration loads of the time step to the <see cref="Model"/>.
 		/// </summary>
-		/// <param name="timeStep"></param>
+		/// <param name="timeStep">An <see cref="int"/> denoting the number of the time step.</param>
 		public void AssignMassAccelerationHistoryLoads(int timeStep)
 		{
 			throw new NotImplementedException();
@@ -136,7 +136,7 @@
 		/// <summary>
 		/// Assigns nodal loads of the <see cref="Model"/>.
 		/// </summary>
-		/// <param name="distributeNodalLoads"></param>
+		/// <param name="distributeNodalLoads"><inheritdoc cref="NodalLoadsToSubdomainsDistributor"/></param>
 		public void AssignNodalLoads(NodalLoadsToSubdomainsDistributor distributeNodalLoads)
 		{
 			var globalNodalLoads = new Table<INode, IDofType, double>();
@@ -150,9 +150,9 @@
 		}
 
 		/// <summary>
-		/// Assigns mass acceleration loads of the time step to the <see cref="Model"/>
+		/// Assigns mass acceleration loads of the time step to the <see cref="Model"/>.
 		/// </summary>
-		/// <param name="timeStep"></param>
+		/// <param name="timeStep">An <see cref="int"/> denoting the number of the time step.</param>
 		public void AssignTimeDependentNodalLoads(int timeStep, NodalLoadsToSubdomainsDistributor distributeNodalLoads)
 		{
 			var globalNodalLoads = new Table<INode, IDofType, double>();
@@ -169,7 +169,7 @@
 		}
 
 		/// <summary>
-		/// Clear the <see cref="Model"/>
+		/// Clear the <see cref="Model"/>.
 		/// </summary>
 		public void Clear()
 		{
@@ -177,13 +177,13 @@
 			PatchesDictionary.Clear();
 			ElementsDictionary.Clear();
 			ControlPointsDictionary.Clear();
-			globalDofOrdering = null;
+			_globalDofOrdering = null;
 			Constraints.Clear();
 			MassAccelerationHistoryLoads.Clear();
 		}
 
 		/// <summary>
-		/// Interconnects Data Structures of the <see cref="Model"/>
+		/// Interconnects Data Structures of the <see cref="Model"/>.
 		/// </summary>
 		public void ConnectDataStructures()
 		{

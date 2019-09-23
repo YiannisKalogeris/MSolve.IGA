@@ -9,7 +9,7 @@ In case of NURBS shape functions, one-dimensional elements are created utilizing
 Its unique values provide the Knots which in this example are:
 { 0,1,2,3,4,5,6 }. These values taken in consecutive pairs create the univariate Nurbs elements. The latter is illustrated in the figure below.
 
-![One -dimensional model](/Images/NurbsElement1D.png)
+![One -dimensional model](../docs/Images/NurbsElement1D.png)
 
 
 An example on how to generated a NurbsElement1D is shown in the code below.
@@ -29,7 +29,7 @@ element.AddControlPoints(elementControlPoints);
 ### Nurbs Element 2D
 An extension to two-dimensions is straight forward by tensor product of univariate elements as presented in the last section. The only diffence in this case is that four knots are needed to define an element. Their order is the following: (i,j) (i, j+1) (i+1, j) (i+1, j+1), where i,j are the univariate numbering of the knots per axis Ksi and Heta equivalently.
 
-![Two-dimensional model](/Images/NurbsElement2D.png)
+![Two-dimensional model](../docs/Images/NurbsElement2D.png)
 
 ```csharp
 var element = new Elements.NurbsElement2D();
@@ -72,9 +72,7 @@ This element category contains structural elements, that can have other categori
 ### Nurbs Kirchhoff-Love shell element
 This type of element is based on the Kirchhoff-Love formulation provided in [3]. It utilized Nurbs shape functions for the analysis. A detailed approach of the kinematics of the element can be found in [3], yet the finite element produced for the linear formulation is provided.
 
-$$
-K_{rs}^{int}=\int_{A} \frac{ \partial n}{\partial u_s}:\frac{ \partial ε}{\partial u_r} + \frac{ \partial m}{\partial u_s}:\frac{ \partial κ}{\partial u_r} dA
-$$
+<img src="http://www.sciweavers.org/tex2img.php?eq=K_%7Brs%7D%5E%7Bint%7D%3D%5Cint_%7BA%7D%20%5Cfrac%7B%20%5Cpartial%20n%7D%7B%5Cpartial%20u_s%7D%3A%5Cfrac%7B%20%5Cpartial%20%CE%B5%7D%7B%5Cpartial%20u_r%7D%20%2B%20%5Cfrac%7B%20%5Cpartial%20m%7D%7B%5Cpartial%20u_s%7D%3A%5Cfrac%7B%20%5Cpartial%20%CE%BA%7D%7B%5Cpartial%20u_r%7D%20dA&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="K_{rs}^{int}=\int_{A} \frac{ \partial n}{\partial u_s}:\frac{ \partial ε}{\partial u_r} + \frac{ \partial m}{\partial u_s}:\frac{ \partial κ}{\partial u_r} dA" width="272" height="46" />
 
 ```csharp
 var element = new NurbsKirchhoffLoveShellElement();

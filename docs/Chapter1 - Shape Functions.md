@@ -4,33 +4,19 @@ This file will provide the specific for the shape functions implemented in **MSo
 ## B-Splines
 B-Splines are considered the basis for all advanced shape function used for both Computer Aided Design (CAD) and Isogeometric Analysis. Given a set of non-decreasing values 
 
-$$
- Ξ=\{ ξ_1, ξ_2, ... ,ξ_{n+p+1}  \}
-$$
+![Knot Value Vector ](../docs/Images/KnotValueVector.png)
 
 and a polynomial degree **p**, a multitude of **n** B-Spline shape function can be evaluated using Cox-de-Boor recursive algorithm. For constant B-Splines we have:
 
-$$
-N_{i,0} (ξ)=\Bigg\{
-    \begin{matrix}
-        1,  \\
-        0,
-    \end{matrix}
-\qquad
-    \begin{matrix}
-        if \quad ξ_{i} \leq ξ \lt ξ_{i+1}\\
-        otherwise
-    \end{matrix}
-$$
+![Constant B-Splines](../docs/Images/ConstantBSplines.png)
 
 For degrees **p**>0 we have:
 
-$$
-N_{i,p}(ξ)=\frac{ξ-ξ_i}{ξ_{i+p}}N_{i, p-1}(ξ)+\frac{ξ_{i+p+1}-ξ}{ξ_{i+p+1}-ξ_i}N_{i+1, p-1}(ξ)
-$$
+![p>0 B-Splines](../docs/Images/BSplines.png)
 
 with the assumption that 0/0=0. For further information regarding B-Splines please refer to [1].
 Below a usage sample of the **MSolve.IGA** code for calculating B-Splines is provide. The parametric coordinates variable denotes the point at which the B-Splines will be evaluated.
+
 ```csharp
     var degree = 3;
 	var knotValueVector = Vector.CreateFromArray(new double[] { 0, 0, 0, 0, 1/9.0, 2/9.0, 3/9.0, 4/9.0, 5/9.0, 6/9.0, 7/9.0, 8/9.0, 1, 1, 1, 1 });
@@ -41,28 +27,20 @@ Below a usage sample of the **MSolve.IGA** code for calculating B-Splines is pro
 ## Non-Uniform Rational B-Splines (NURBS)
 NURBS are a generalization of B-Splines shape functions, as the Control Points that generate the geometries apart from their cartesian cooordinates **X**, **Y**, **Z** also have a weight **W**. For the computation of the NURBS shape functions a weighting function is introduced. 
 
-$$
-W(ξ)=\sum_{i=1}^{n} \{ N_{i,p}(ξ) \cdot w_i \}
-$$
+![Weighting function](../docs/Images/NurbsWeightingFunction.png)
+
 Utilizing the latter one-dimensional NURBS shape functions are evaluated as follows:
-$$
-R_i^p(ξ)=\frac{N_{i,p}(ξ) \cdot w_i}{W(ξ)}=\frac{N_{i,p}(ξ) \cdot w_i}{\sum_{i=1}^{n} \{ N_{i,p}(ξ) \cdot w_i \}}
-$$
+
+![Univariate nurbs](../docs/Images/UnivariateNurbs.png)
+
 Two-dimensional NURBS are calcute in a tensor-product fashion by combining one-dimensional NURBS as follows:
 
-$$
-R_{i,j}^{p,q}(ξ,η)=\frac{N_{i,p}(ξ) \cdot M_{j,q}(η) \cdot w_{ij}}{\sum_{i'=1}^{n} \sum_{j'=1}^{m} \{ N_{i',p}(ξ) \cdot M_{j',q}(η) \cdot w_{i'j'} \}}
-$$
-$$
-W(ξ,η)=\sum_{i'=1}^{n} \sum_{j'=1}^{m} \{ N_{i',p}(ξ) \cdot M_{j',q}(η) \cdot w_{i'j'} \}
-$$
+![Bivariate nurbs](../docs/Images/BivariateNurbs.png)
+
 And for three-dimensional NURBS equivalently:
-$$
-R_{i,j,k}^{p,q,r}(ξ,η,ζ)=\frac{N_{i,p}(ξ) \cdot M_{j,q}(η) \cdot L_{k,r}(ζ) \cdot w_{ij}}{\sum_{i'=1}^{n} \sum_{j'=1}^{m} \sum_{k'=1}^{l} \{ N_{i',p}(ξ) \cdot M_{j',q}(η) \cdot L_{k',r}(ζ) \cdot  w_{i'j'} \}}
-$$
-$$
-W(ξ,η,ζ)=\sum_{i'=1}^{n} \sum_{j'=1}^{m} \sum_{k'=1}^{l} \{ N_{i',p}(ξ) \cdot M_{j',q}(η) \cdot L_{k',r}(ζ)  \cdot w_{i'j'} \}
-$$
+
+![Trivariate nurbs](../docs/Images/TrivariateNurbs.png)
+
 For more information please refer to [1]. 
 
 ```csharp
@@ -82,19 +60,15 @@ var shapeFunction = Nurbs2D(degreeKsi,degreeHeta,knotValueVectorKsi, knotValueVe
 ## T-Splines
 A detailed introduction to T-Splines is provided in [2]. In the context of the current code, the work of [3] is implemented as it offers an immediate connection of Rhino software and an analysis code. Similar to NURBS the rational T-Spline shape functions are calculated as follows:
 
-$$
-R(ξ)=\frac{W^eN^e(ξ)}{(w^e)^TN^e(ξ)}
-$$
+![Univariate T-Splines](../docs/Images/UnivariateTSplines.png)
+
 where **e** refers to the element. In case Bezier extraction is performed to generate Bezier elements from the T-Spline basis the connection between the two function spaces is the following.
 
-$$
-N^e(ξ)=C^eB(ξ)
-$$
+![Bezier extraction](../docs/Images/TSplinesToBezier.png)
+
 where C denotes the Bezier extraction operator. As a result of the last two equations the rational T-SplineShapeFunctions can be written as:
 
-$$
-R(ξ)=\frac{W^eC^eB(ξ)}{(w^e)^TC^eB(ξ)}
-$$
+![T-Splines from BEzier](../docs/Images/BezierExtraction.png)
 
 An example of the code used for calculating the shape functions of a Bezier extracted T-Spline is provided below.
 ```csharp

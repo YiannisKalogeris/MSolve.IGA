@@ -75,19 +75,19 @@ var shapeFunction = Nurbs2D(degreeKsi,degreeHeta,knotValueVectorKsi, knotValueVe
 A detailed introduction to T-Splines is provided in [2]. In the context of the current code, the work of [3] is implemented as it offers an immediate connection of Rhino software and an analysis code. Similar to NURBS the rational T-Spline shape functions are calculated as follows:
 
 <p align="center">
-  <img src="../docs/Images/UnivariateTSplines.png" width="300"/>
+  <img src="../docs/Images/UnivariateTSplines.png" width="200"/>
 </p>
 
 where **e** refers to the element. In case Bezier extraction is performed to generate Bezier elements from the T-Spline basis the connection between the two function spaces is the following.
 
 <p align="center">
-  <img src="../docs/Images/TSplinesToBezier.png" width="300"/>
+  <img src="../docs/Images/TSplinesToBezier.png" width="200"/>
 </p>
 
 where C denotes the Bezier extraction operator. As a result of the last two equations the rational T-SplineShapeFunctions can be written as:
 
 <p align="center">
-  <img src="../docs/Images/BezierExtraction.png" width="300"/>
+  <img src="../docs/Images/BezierExtraction.png" width="200"/>
 </p>
 
 An example of the code used for calculating the shape functions of a Bezier extracted T-Spline is provided below.

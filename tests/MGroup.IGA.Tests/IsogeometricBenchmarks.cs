@@ -169,7 +169,7 @@ namespace MGroup.IGA.Tests
 			for (int i = 0; i < loadVectorExpected.Length; i++)
 				Assert.Equal(loadVectorExpected[i], model.PatchesDictionary[0].Forces[i], 6);
 
-			//Test fro Displacement Vector
+			//Test for Displacement Vector
 			double[] displacementVectorExpected = new double[]
 			{
 				-0.0614562631781765, -0.0219170576325587, -0.0393637953297948, -0.00985891244520424,
@@ -201,7 +201,11 @@ namespace MGroup.IGA.Tests
 			};
 			for (int i = 0; i < displacementVectorExpected.Length; i++)
 				Assert.Equal(displacementVectorExpected[i], solver.LinearSystems[0].Solution[i], 6);
+
+			var paraview = new ParaviewNurbs2D(model, solver.LinearSystems[0].Solution, "QudraticCaliverDistrivuted");
+			paraview.CreateParaview2DFile();
 		}
+
 
 		[Fact]
 		public void IsogeometricPlateTension()
@@ -947,7 +951,7 @@ namespace MGroup.IGA.Tests
 		{
 			Model model = new Model();
 			ModelCreator modelCreator = new ModelCreator(model);
-			string filename = "..\\..\\..\\InputFiles\\Horseshoe.txt";
+			string filename = "..\\..\\..\\MGroup.IGA.Tests\\InputFiles\\Horseshoe.txt";
 			IsogeometricReader modelReader = new IsogeometricReader(modelCreator, filename);
 			modelReader.CreateModelFromFile();
 
@@ -1683,7 +1687,7 @@ namespace MGroup.IGA.Tests
 			Model model = new Model();
 			ModelCreator modelCreator = new ModelCreator(model);
 			string filename = "Beam3D";
-			string filepath = $"..\\..\\..\\InputFiles\\{filename}.txt";
+			string filepath = $"..\\..\\..\\MGroup.IGA.Tests\\InputFiles\\{filename}.txt";
 			IsogeometricReader modelReader = new IsogeometricReader(modelCreator, filepath);
 			modelReader.CreateModelFromFile();
 
@@ -1734,13 +1738,15 @@ namespace MGroup.IGA.Tests
 
 			//for (int i = 0; i < displacementVectorExpected.RowCount; i++)
 			//  Assert.True(Utilities.AreValuesEqual(displacementVectorExpected.At(i, 0), linearSystems[0].Solution[i], 1e-2));
+
+
 		}
 
 		//[Fact]
 		public void TSplinesShellsBenchmark()
 		{
 			Model model = new Model();
-			string filename = "..\\..\\..\\InputFiles\\surface.iga";
+			string filename = "..\\..\\..\\MGroup.IGA.Tests\\InputFiles\\surface.iga";
 			IgaFileReader modelReader = new IgaFileReader(model, filename);
 			modelReader.CreateTSplineShellsModelFromFile();
 

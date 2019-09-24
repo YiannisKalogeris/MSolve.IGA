@@ -1,6 +1,9 @@
 # Examples
-
+All of the examples below are split into three parts. The first refers to the model creation. The second applies the boundary conditions to the model and finally the third defines the analysis type. 
 ## NURBS quadratic cantilever with distributed load.
+
+The first example is a simple two-dimensional quadratic cantilever analyzed with the aid of **MSolve.IGA**.
+The first code section reads an dcreates the model from file. The file can be found in **MSolve.IGA.Tests** project in the InputFiles folder.
 
 ```csharp
 Model model = new Model();
@@ -9,7 +12,11 @@ var filename = "Cantilever2D";
 string filepath = $"..\\..\\..\\MGroup.IGA.Tests\\InputFiles\\{filename}.txt";
 IsogeometricReader modelReader = new IsogeometricReader(modelCreator, filepath);
 modelReader.CreateModelFromFile();
+```
 
+In the second part of the example the boundary conditions are applied. Initially a vertical load with magnitude 100 is defined and applied with the aid of a Neumann Boundary condition to the right edge of the model, which was automatically created during the model creation phase. In the next step all control points of the left edge are clamped.
+
+```csharp
 // Forces and Boundary Conditions
 Value verticalDistributedLoad = (x, y, z) => new double[] {0, -100, 0};
 model.PatchesDictionary[0].EdgesDictionary[1].LoadingConditions
@@ -22,7 +29,11 @@ foreach (ControlPoint controlPoint in model.PatchesDictionary[0].EdgesDictionary
     model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationX });
     model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationY });
 }
+```
 
+The final step is the solution procedure. At first a solver is choosen, in this case, a Skyline one. Since the problem is of structural mechanics nature, the problem provider is defined as structural. Finally a Linear and Static analysis is defined and a paraview file with the displacements is generated. 
+
+```csharp
 var solverBuilder = new SkylineSolver.Builder();
 ISolver solver = solverBuilder.BuildSolver(model);
 
@@ -36,7 +47,13 @@ var parentAnalyzer = new StaticAnalyzer(model, solver, provider, childAnalyzer);
 // Run the analysis
 parentAnalyzer.Initialize();
 parentAnalyzer.Solve();
+
+var paraview = new ParaviewNurbs2D(model, solver.LinearSystems[0].Solution, "QuadraticCantilever");
+paraview.CreateParaview2DFile();
 ```
+
+The output of the paraview file is illustrated in the figure at the end of this example.
+![Paraview  cantilever](../docs/Images/QuadraticCantilever.png) 
 
 ## NURBS Beam3D
 

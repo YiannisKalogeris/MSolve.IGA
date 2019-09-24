@@ -32,9 +32,6 @@ model.PatchesDictionary[0].EdgesDictionary[0].LoadingConditions
 ```
 
 
-### Acceleration loads
-
-
 ## Constraints
 
 ### Nodal constraints

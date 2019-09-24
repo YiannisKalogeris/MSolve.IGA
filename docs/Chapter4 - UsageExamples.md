@@ -56,7 +56,7 @@ The output of the paraview file is illustrated in the figure at the end of this 
 ![Paraview  cantilever](../docs/Images/QuadraticCantilever.png) 
 
 ## NURBS Beam3D
-
+ The scond example is of a Beam 3D designed with NURBS. Once again the Isogeometric Reader is utilized to read the input file and create the model.
 ```csharp
 Model model = new Model();
 ModelCreator modelCreator = new ModelCreator(model);
@@ -65,9 +65,12 @@ string filepath = $"..\\..\\..\\InputFiles\\{filename}.txt";
 IsogeometricReader modelReader = new IsogeometricReader(modelCreator, filepath);
 modelReader.CreateModelFromFile();
 
+```
+In the second example we choose to apply a constant load of magnitude to the Control Points of the right face of the model while the right face is clamped.
+
+```csharp
 // Forces and Boundary Conditions
-foreach (ControlPoint controlPoint in model.PatchesDictionary[0].FacesDictionary[1].ControlPointsDictionary
-    .Values)
+foreach (ControlPoint controlPoint in model.PatchesDictionary[0].FacesDictionary[1].ControlPointsDictionary.Values)
 {
     model.Loads.Add(new Load()
     {
@@ -85,6 +88,10 @@ foreach (ControlPoint controlPoint in model.PatchesDictionary[0].FacesDictionary
     model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationY });
     model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationZ });
 }
+
+```
+The final step is the solution procedure. At first a solver is choosen, in this case, a Skyline one. Since the problem is of structural mechanics nature, the problem provider is defined as structural. Finally a Linear and Static analysis is defined and a paraview file with the displacements is generated. 
+```csharp
 
 // Solvers
 var solverBuilder = new SkylineSolver.Builder();
@@ -104,9 +111,14 @@ parentAnalyzer.Solve();
 var paraview = new ParaviewNurbs3D(model, solver.LinearSystems[0].Solution, filename);
 paraview.CreateParaviewFile();
 ```
+In the following figure we see the output of the Paraview. 
+![Paraview  Beam 3D](../docs/Images/Beam3D.png)
+
+## T-Splines 2D
+
 
 ## NURBS Square shell
-
+In a similar fashion to the previous examples, a square shell is analyzed. Once again the model is read from a custom txt file. The difference with the previous examples is that the loads are read from a mat file and applied to the equivalanet Control Point dof.
 ```csharp
 Model model = new Model();
 var filename = "SquareShell";
@@ -169,9 +181,11 @@ var paraview = new ParaviewNurbsShells(model, solver.LinearSystems[0].Solution, 
 paraview.CreateParaview2DFile();
 ```
 
+The desired paraview visualization is shown in the figure below.
+![Paraview  Square shell](../docs/Images/SquareShell.png)
 
 ## T-Spline Cantilever shell
-
+In this T-Spline example a smal cantilever is analyzed with T-Splines. The data are read from a .iga file exported from Autodesk T-Spline plugin for Rhino. 
 ```csharp
 Model model = new Model();
 var filename = "CantileverShell";
@@ -222,3 +236,6 @@ parentAnalyzer.Solve();
 var paraview = new ParaviewTsplineShells(model, solver.LinearSystems[0].Solution, filename);
 paraview.CreateParaviewFile();
 ```
+
+The deflection of the shell cantilevers is shown using paraview in the figure below.
+![Paraview  TSpline Cantilever shell](../docs/Images/TSplineShell.png)

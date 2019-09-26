@@ -75,9 +75,7 @@ This element category contains structural elements, that can have other categori
 ### Nurbs Kirchhoff-Love shell element
 This type of element is based on the Kirchhoff-Love formulation provided in [3]. It utilized Nurbs shape functions for the analysis. A detailed approach of the kinematics of the element can be found in [3], yet the finite element produced for the linear formulation is provided.
 
-<p align="center">
-  <img src="../docs/Images/KLStiffnessEquation.png" width="400"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=K_{rs}^{int}&space;=\int_{A}\frac{&space;\partial&space;n}{\partial&space;u_s}:\frac{\partial&space;\epsilon}{\partial&space;u_r}&plus;\frac{&space;\partial&space;m}{\partial&space;u_s}:\frac{\partial&space;\kappa}{\partial&space;u_r}dA" target="_blank"><img src="https://latex.codecogs.com/gif.latex?K_{rs}^{int}&space;=\int_{A}\frac{&space;\partial&space;n}{\partial&space;u_s}:\frac{\partial&space;\epsilon}{\partial&space;u_r}&plus;\frac{&space;\partial&space;m}{\partial&space;u_s}:\frac{\partial&space;\kappa}{\partial&space;u_r}dA" title="K_{rs}^{int} =\int_{A}\frac{ \partial n}{\partial u_s}:\frac{\partial \epsilon}{\partial u_r}+\frac{ \partial m}{\partial u_s}:\frac{\partial \kappa}{\partial u_r}dA" /></a>
 
 
 ```csharp

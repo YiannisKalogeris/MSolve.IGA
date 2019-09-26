@@ -4,21 +4,15 @@ This file will provide the specific for the shape functions implemented in **MSo
 ## B-Splines
 B-Splines are considered the basis for all advanced shape function used for both Computer Aided Design (CAD) and Isogeometric Analysis. Given a set of non-decreasing values 
 
-<p align="center">
-  <img src="../docs/Images/KnotValueVector.png" width="300"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Xi=\{&space;\xi_1,&space;\xi_2,...,\xi_{n&plus;p&plus;1}&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Xi=\{&space;\xi_1,&space;\xi_2,...,\xi_{n&plus;p&plus;1}&space;\}" title="\Xi=\{ \xi_1, \xi_2,...,\xi_{n+p+1} \}" /></a>
 
 and a polynomial degree **p**, a multitude of **n** B-Spline shape function can be evaluated using Cox-de-Boor recursive algorithm. For constant B-Splines we have:
 
-<p align="center">
-  <img src="../docs/Images/ConstantBSplines.png" width="400"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=N_{i,0}(\xi)=&space;\begin{cases}&space;&&space;1&space;\quad&space;,if&space;\quad&space;\xi_i&space;\leq&space;\xi<&space;\xi_{i&plus;1}&space;\\&space;&&space;0&space;\quad&space;otherwise&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N_{i,0}(\xi)=&space;\begin{cases}&space;&&space;1&space;\quad&space;,if&space;\quad&space;\xi_i&space;\leq&space;\xi<&space;\xi_{i&plus;1}&space;\\&space;&&space;0&space;\quad&space;otherwise&space;\end{cases}" title="N_{i,0}(\xi)= \begin{cases} & 1 \quad ,if \quad \xi_i \leq \xi< \xi_{i+1} \\ & 0 \quad otherwise \end{cases}" /></a>
 
 For degrees **p**>0 we have:
 
-<p align="center">
-  <img src="../docs/Images/BSplines.png" width="500"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=N_{i,p}(\xi)=&space;\frac{\xi-\xi_i}{\xi_{i&plus;p}-\xi_i}&space;\cdot&space;N_{i,p-1}(\xi)&plus;\frac{\xi_{i&plus;p&plus;1}-\xi}{\xi_{i&plus;p&plus;1}-\xi_i}&space;\cdot&space;N_{i&plus;1,p-1}(\xi)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N_{i,p}(\xi)=&space;\frac{\xi-\xi_i}{\xi_{i&plus;p}-\xi_i}&space;\cdot&space;N_{i,p-1}(\xi)&plus;\frac{\xi_{i&plus;p&plus;1}-\xi}{\xi_{i&plus;p&plus;1}-\xi_i}&space;\cdot&space;N_{i&plus;1,p-1}(\xi)" title="N_{i,p}(\xi)= \frac{\xi-\xi_i}{\xi_{i+p}-\xi_i} \cdot N_{i,p-1}(\xi)+\frac{\xi_{i+p+1}-\xi}{\xi_{i+p+1}-\xi_i} \cdot N_{i+1,p-1}(\xi)" /></a>
 
 with the assumption that 0/0=0. For further information regarding B-Splines please refer to [1].
 Below a usage sample of the **MSolve.IGA** code for calculating B-Splines is provide. The parametric coordinates variable denotes the point at which the B-Splines will be evaluated.
@@ -33,27 +27,19 @@ Below a usage sample of the **MSolve.IGA** code for calculating B-Splines is pro
 ## Non-Uniform Rational B-Splines (NURBS)
 NURBS are a generalization of B-Splines shape functions, as the Control Points that generate the geometries apart from their cartesian cooordinates **X**, **Y**, **Z** also have a weight **W**. For the computation of the NURBS shape functions a weighting function is introduced. 
 
-<p align="center">
-  <img src="../docs/Images/NurbsWeightingFunction.png" width="300"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=N_{i,p}(\xi)=&space;\frac{\xi-\xi_i}{\xi_{i&plus;p}-\xi_i}&space;\cdot&space;N_{i,p-1}(\xi)&plus;\frac{\xi_{i&plus;p&plus;1}-\xi}{\xi_{i&plus;p&plus;1}-\xi_i}&space;\cdot&space;N_{i&plus;1,p-1}(\xi)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N_{i,p}(\xi)=&space;\frac{\xi-\xi_i}{\xi_{i&plus;p}-\xi_i}&space;\cdot&space;N_{i,p-1}(\xi)&plus;\frac{\xi_{i&plus;p&plus;1}-\xi}{\xi_{i&plus;p&plus;1}-\xi_i}&space;\cdot&space;N_{i&plus;1,p-1}(\xi)" title="N_{i,p}(\xi)= \frac{\xi-\xi_i}{\xi_{i+p}-\xi_i} \cdot N_{i,p-1}(\xi)+\frac{\xi_{i+p+1}-\xi}{\xi_{i+p+1}-\xi_i} \cdot N_{i+1,p-1}(\xi)" /></a>
 
 Utilizing the latter one-dimensional NURBS shape functions are evaluated as follows:
 
-<p align="center">
-  <img src="../docs/Images/UnivariateNurbs.png" width="400"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=R_i^p(\xi)=\frac{N_{i,p)(\xi)}&space;\cdot&space;w_i}{W(\xi)}=\frac{N_{i,p)(\xi)}&space;\cdot&space;w_i}{\sum_{i=1}^n&space;\{&space;N_{i,p}(\xi)&space;\cdot&space;w_i&space;\}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_i^p(\xi)=\frac{N_{i,p)(\xi)}&space;\cdot&space;w_i}{W(\xi)}=\frac{N_{i,p)(\xi)}&space;\cdot&space;w_i}{\sum_{i=1}^n&space;\{&space;N_{i,p}(\xi)&space;\cdot&space;w_i&space;\}}" title="R_i^p(\xi)=\frac{N_{i,p)(\xi)} \cdot w_i}{W(\xi)}=\frac{N_{i,p)(\xi)} \cdot w_i}{\sum_{i=1}^n \{ N_{i,p}(\xi) \cdot w_i \}}" /></a>
 
 Two-dimensional NURBS are calcute in a tensor-product fashion by combining one-dimensional NURBS as follows:
 
-<p align="center">
-  <img src="../docs/Images/BivariateNurbs.png" width="500"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=R_{i,j}^{p,q}(\xi)=\frac{N_{i,p}(\xi)&space;\cdot&space;M_{j,q}(\eta)&space;\cdot&space;w_{ij}}{\sum_{i'=1}^n&space;\sum_{j'=1}^m&space;\{&space;N_{i',p}(\xi)&space;\cdot&space;M_{j',q}(\eta)&space;\cdot&space;w_{i'j'}&space;\}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_{i,j}^{p,q}(\xi)=\frac{N_{i,p}(\xi)&space;\cdot&space;M_{j,q}(\eta)&space;\cdot&space;w_{ij}}{\sum_{i'=1}^n&space;\sum_{j'=1}^m&space;\{&space;N_{i',p}(\xi)&space;\cdot&space;M_{j',q}(\eta)&space;\cdot&space;w_{i'j'}&space;\}}" title="R_{i,j}^{p,q}(\xi)=\frac{N_{i,p}(\xi) \cdot M_{j,q}(\eta) \cdot w_{ij}}{\sum_{i'=1}^n \sum_{j'=1}^m \{ N_{i',p}(\xi) \cdot M_{j',q}(\eta) \cdot w_{i'j'} \}}" /></a>
 
 And for three-dimensional NURBS equivalently:
 
-<p align="center">
-  <img src="../docs/Images/TrivariateNurbs.png" width="500"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=R_{i,j,k}^{p,q,r}(\xi)=\frac{N_{i,p}(\xi)&space;\cdot&space;M_{j,q}(\eta)&space;\cdot&space;L_{k,r}(\eta)&space;\cdot&space;w_{ijk}}{\sum_{i'=1}^n&space;\sum_{j'=1}^m&space;\sum_{k'=1}^l&space;\{&space;N_{i',p}(\xi)&space;\cdot&space;M_{j',q}(\eta)&space;\cdot&space;L_{k',r}(\zeta)&space;\cdot&space;w_{i'j'k'}&space;\}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_{i,j,k}^{p,q,r}(\xi)=\frac{N_{i,p}(\xi)&space;\cdot&space;M_{j,q}(\eta)&space;\cdot&space;L_{k,r}(\eta)&space;\cdot&space;w_{ijk}}{\sum_{i'=1}^n&space;\sum_{j'=1}^m&space;\sum_{k'=1}^l&space;\{&space;N_{i',p}(\xi)&space;\cdot&space;M_{j',q}(\eta)&space;\cdot&space;L_{k',r}(\zeta)&space;\cdot&space;w_{i'j'k'}&space;\}}" title="R_{i,j,k}^{p,q,r}(\xi)=\frac{N_{i,p}(\xi) \cdot M_{j,q}(\eta) \cdot L_{k,r}(\eta) \cdot w_{ijk}}{\sum_{i'=1}^n \sum_{j'=1}^m \sum_{k'=1}^l \{ N_{i',p}(\xi) \cdot M_{j',q}(\eta) \cdot L_{k',r}(\zeta) \cdot w_{i'j'k'} \}}" /></a>
 
 For more information please refer to [1]. 
 
@@ -74,21 +60,15 @@ var shapeFunction = Nurbs2D(degreeKsi,degreeHeta,knotValueVectorKsi, knotValueVe
 ## T-Splines
 A detailed introduction to T-Splines is provided in [2]. In the context of the current code, the work of [3] is implemented as it offers an immediate connection of Rhino software and an analysis code. Similar to NURBS the rational T-Spline shape functions are calculated as follows:
 
-<p align="center">
-  <img src="../docs/Images/UnivariateTSplines.png" width="200"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=R(\xi)=\frac{W^eN^e(\xi)}{(w^e)^TN^e(\xi)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R(\xi)=\frac{W^eN^e(\xi)}{(w^e)^TN^e(\xi)}" title="R(\xi)=\frac{W^eN^e(\xi)}{(w^e)^TN^e(\xi)}" /></a>
 
 where **e** refers to the element. In case Bezier extraction is performed to generate Bezier elements from the T-Spline basis the connection between the two function spaces is the following.
 
-<p align="center">
-  <img src="../docs/Images/TSplinesToBezier.png" width="200"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=N^e(\xi)=C^eB(\xi)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N^e(\xi)=C^eB(\xi)" title="N^e(\xi)=C^eB(\xi)" /></a>
 
 where C denotes the Bezier extraction operator. As a result of the last two equations the rational T-SplineShapeFunctions can be written as:
 
-<p align="center">
-  <img src="../docs/Images/BezierExtraction.png" width="200"/>
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=R(\xi)=\frac{W^eC^eB(\xi)}{(w^e)^TC^eB(\xi)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R(\xi)=\frac{W^eC^eB(\xi)}{(w^e)^TC^eB(\xi)}" title="R(\xi)=\frac{W^eC^eB(\xi)}{(w^e)^TC^eB(\xi)}" /></a>
 
 An example of the code used for calculating the shape functions of a Bezier extracted T-Spline is provided below.
 

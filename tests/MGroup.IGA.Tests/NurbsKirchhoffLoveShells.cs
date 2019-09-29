@@ -411,9 +411,9 @@ namespace MGroup.IGA.Tests
 
 			for (int i = 0; i < 6; i++)
 			{
-				model.ControlPointsDictionary[i].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationX });
-				model.ControlPointsDictionary[i].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationY });
-				model.ControlPointsDictionary[i].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationZ });
+				model.ControlPointsDictionary[i].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationX });
+				model.ControlPointsDictionary[i].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationY });
+				model.ControlPointsDictionary[i].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationZ });
 			}
 
 			// Solvers
@@ -479,9 +479,9 @@ namespace MGroup.IGA.Tests
 			{
 				foreach (var controlPoint in edge.ControlPointsDictionary.Values)
 				{
-					model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationX });
-					model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationY });
-					model.ControlPointsDictionary[controlPoint.ID].Constrains.Add(new Constraint() { DOF = StructuralDof.TranslationZ });
+					model.ControlPointsDictionary[controlPoint.ID].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationX });
+					model.ControlPointsDictionary[controlPoint.ID].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationY });
+					model.ControlPointsDictionary[controlPoint.ID].Constraints.Add(new Constraint() { DOF = StructuralDof.TranslationZ });
 				}
 			}
 

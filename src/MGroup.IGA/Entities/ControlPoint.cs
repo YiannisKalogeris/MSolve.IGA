@@ -16,12 +16,7 @@ namespace MGroup.IGA.Entities
 		/// <summary>
 		/// List containing degree of freedom constraints.
 		/// </summary>
-		public List<Constraint> Constrains { get; } = new List<Constraint>();
-
-		/// <summary>
-		/// List containing degree of freedom constraints.
-		/// </summary>
-		public List<Constraint> Constraints => Constrains;
+		public List<Constraint> Constraints { get; } = new List<Constraint>();
 
 		/// <summary>
 		/// Dictionary containing the Elements adjacent to the <see cref="ControlPoint"/>.
@@ -126,7 +121,7 @@ namespace MGroup.IGA.Entities
 		{
 			var header = $"{ID}: ({X}, {Y}, {Z})";
 			var constrains = new StringBuilder();
-			foreach (var c in Constrains)
+			foreach (var c in Constraints)
 			{
 				var con = new StringBuilder();
 				if (c.DOF == StructuralDof.TranslationX) con.Append("X ,");

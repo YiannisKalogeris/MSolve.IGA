@@ -49,7 +49,7 @@ namespace MGroup.IGA.Postprocessing
 			var pointIndex = 0;
 			foreach (var element in _model.Elements)
 			{
-				var tsplineElement = element as TSplineKirchhoffLoveShellElementMaterial;
+				var tsplineElement = element as TSplineKirchhoffLoveShellElement;
 				var elementPoints = tsplineElement.CalculatePointsForPostProcessing(tsplineElement);
 
 				for (int i = 0; i < elementPoints.GetLength(0); i++)
@@ -103,7 +103,7 @@ namespace MGroup.IGA.Postprocessing
 			const int numberOfVerticesPerCell = 4;
 			const int paraviewCellCode = 9;
 
-			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\OutputFiles\\{_filename}Paraview.vtu"))
+			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\MGroup.IGA.Tests\\OutputFiles\\{_filename}Paraview.vtu"))
 			{
 				outputFile.WriteLine("<?xml version=\"1.0\"?>");
 				outputFile.WriteLine("<VTKFile type=\"UnstructuredGrid\" version=\"0.1\">");

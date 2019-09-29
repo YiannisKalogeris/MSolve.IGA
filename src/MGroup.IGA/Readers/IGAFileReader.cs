@@ -131,21 +131,7 @@ namespace MGroup.IGA.Readers
 
 						if (numberOfDimensions == 2)
 						{
-							Element element = new TSplineElement2D(null)
-							{
-								ID = elementIDCounter,
-								Patch = _model.PatchesDictionary[0],
-								ElementType = new TSplineElement2D(null),
-								DegreeKsi = elementDegreeKsi,
-								DegreeHeta = elementDegreeHeta,
-								ExtractionOperator = extractionOperator
-							};
-							foreach (var t in connectivity)
-							{
-								element.AddControlPoint(_model.ControlPointsDictionary[t]);
-							}
-							_model.ElementsDictionary.Add(elementIDCounter++, element);
-							_model.PatchesDictionary[0].Elements.Add(element);
+							throw new NotImplementedException("TSpline2D not yet implemented");
 						}
 						else
 						{

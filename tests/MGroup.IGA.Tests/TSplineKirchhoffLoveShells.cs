@@ -70,8 +70,8 @@ namespace MGroup.IGA.Tests
 			parentAnalyzer.Initialize();
 			parentAnalyzer.Solve();
 
-			var paraview = new ParaviewTsplineShells(model, solver.LinearSystems[0].Solution, filename);
-			paraview.CreateParaviewFile();
+			//var paraview = new ParaviewTsplineShells(model, solver.LinearSystems[0].Solution, filename);
+			//paraview.CreateParaviewFile();
 
 			var expectedSolutionVector = Vector.CreateFromArray(new double[]
 			{

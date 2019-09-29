@@ -202,8 +202,8 @@ namespace MGroup.IGA.Tests
 			for (int i = 0; i < displacementVectorExpected.Length; i++)
 				Assert.Equal(displacementVectorExpected[i], solver.LinearSystems[0].Solution[i], 6);
 
-			var paraview = new ParaviewNurbs2D(model, solver.LinearSystems[0].Solution, "QudraticCaliverDistrivuted");
-			paraview.CreateParaview2DFile();
+			//var paraview = new ParaviewNurbs2D(model, solver.LinearSystems[0].Solution, "QudraticCaliverDistrivuted");
+			//paraview.CreateParaview2DFile();
 		}
 
 

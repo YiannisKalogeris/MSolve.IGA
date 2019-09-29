@@ -501,8 +501,8 @@ namespace MGroup.IGA.Tests
 			parentAnalyzer.Initialize();
 			parentAnalyzer.Solve();
 
-			var paraview = new ParaviewNurbsShells(model, solver.LinearSystems[0].Solution, filename);
-			paraview.CreateParaview2DFile();
+			//var paraview = new ParaviewNurbsShells(model, solver.LinearSystems[0].Solution, filename);
+			//paraview.CreateParaview2DFile();
 
 			Matrix<double> solutionVectorExpected =
 				MatlabReader.Read<double>("..\\..\\..\\MGroup.IGA.Tests\\InputFiles\\SquareShell.mat", "SolutionVector");

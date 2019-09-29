@@ -109,7 +109,7 @@ namespace MGroup.IGA.Postprocessing
 				paraviewCellCode = 9;
 			}
 
-			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\OutputFiles\\{_filename}Paraview.vtu"))
+			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\MGroup.IGA.Tests\\OutputFiles\\{_filename}Paraview.vtu"))
 			{
 				outputFile.WriteLine("<VTKFile type=\"UnstructuredGrid\"  version=\"0.1\"   >");
 				outputFile.WriteLine("<UnstructuredGrid>");

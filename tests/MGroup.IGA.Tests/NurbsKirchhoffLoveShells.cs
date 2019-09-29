@@ -1,5 +1,6 @@
 using MathNet.Numerics.Data.Matlab;
 using MathNet.Numerics.LinearAlgebra;
+using MGroup.IGA.Postprocessing;
 
 namespace MGroup.IGA.Tests
 {

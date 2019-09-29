@@ -474,3 +474,5 @@ connectionStrings.json
 **/wwwroot/dist/*
 # Compiled assets
 **/wwwroot/assets/*
+*.vtu
+*.vts

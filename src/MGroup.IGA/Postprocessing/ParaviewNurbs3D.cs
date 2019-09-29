@@ -148,12 +148,19 @@ namespace MGroup.IGA.Postprocessing
 				var counterCP = 0;
 				foreach (var controlPoint in element.ControlPoints)
 				{
-					var dofX = _model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationX];
-					var dofY = _model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationY];
-					var dofZ = _model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationY];
-					localDisplacements[counterCP, 0] = (dofX == -1) ? 0.0 : _solution[dofX];
-					localDisplacements[counterCP, 1] = (dofY == -1) ? 0.0 : _solution[dofY];
-					localDisplacements[counterCP++, 2] = (dofZ == -1) ? 0.0 : _solution[dofZ];
+					localDisplacements[counterCP, 0] =
+						(!_model.GlobalDofOrdering.GlobalFreeDofs.Contains(controlPoint, StructuralDof.TranslationX))
+							? 0.0
+							: _solution[_model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationX]];
+					localDisplacements[counterCP, 1] =
+						(!_model.GlobalDofOrdering.GlobalFreeDofs.Contains(controlPoint, StructuralDof.TranslationY))
+							? 0.0
+							: _solution[_model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationY]];
+					localDisplacements[counterCP, 2] =
+						(!_model.GlobalDofOrdering.GlobalFreeDofs.Contains(controlPoint, StructuralDof.TranslationZ))
+							? 0.0
+							: _solution[_model.GlobalDofOrdering.GlobalFreeDofs[controlPoint, StructuralDof.TranslationZ]];
+					counterCP++;
 				}
 				var elementKnotDisplacements = element.ElementType.CalculateDisplacementsForPostProcessing(element, localDisplacements);
 				for (int i = 0; i < elementConnectivity.GetLength(1); i++)
@@ -193,7 +200,7 @@ namespace MGroup.IGA.Postprocessing
 
 			var numberOfNodes = nodeCoordinates.GetLength(0);
 
-			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\OutputFiles\\{_filename}Paraview.vts"))
+			using (StreamWriter outputFile = new StreamWriter($"..\\..\\..\\MGroup.IGA.Tests\\OutputFiles\\{_filename}Paraview.vts"))
 			{
 				outputFile.WriteLine("<?xml version=\"1.0\"?>");
 				outputFile.WriteLine("<VTKFile type=\"StructuredGrid\" version=\"0.1\" byte_order=\"BigEndian\" >");

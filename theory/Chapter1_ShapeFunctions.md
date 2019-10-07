@@ -18,10 +18,10 @@ with the assumption that 0/0=0. For further information regarding B-Splines plea
 Below a usage sample of the **MSolve.IGA** code for calculating B-Splines is provide. The parametric coordinates variable denotes the point at which the B-Splines will be evaluated.
 
 ```csharp
-    var degree = 3;
-	var knotValueVector = Vector.CreateFromArray(new double[] { 0, 0, 0, 0, 1/9.0, 2/9.0, 3/9.0, 4/9.0, 5/9.0, 6/9.0, 7/9.0, 8/9.0, 1, 1, 1, 1 });
-	var parametricCoordinates = Vector.CreateFromArray(new double[] {0.007714649348171322, 0.0366677197641736, 0.0744433912358264, 0.10339646165182867});
-	var bsplines1D = new BSPLines1D(degree, knotValueVector, parametricCoordinates);
+var degree = 3;
+var knotValueVector = Vector.CreateFromArray(new double[] { 0, 0, 0, 0, 1/9.0, 2/9.0, 3/9.0, 4/9.0, 5/9.0, 6/9.0, 7/9.0, 8/9.0, 1, 1, 1, 1 });
+var parametricCoordinates = Vector.CreateFromArray(new double[] {0.007714649348171322, 0.0366677197641736, 0.0744433912358264, 0.10339646165182867});
+var bsplines1D = new BSPLines1D(degree, knotValueVector, parametricCoordinates);
 ```
 
 ## Non-Uniform Rational B-Splines (NURBS)

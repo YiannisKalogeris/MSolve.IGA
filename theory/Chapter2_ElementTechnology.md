@@ -10,7 +10,7 @@ Its unique values provide the Knots which in this example are:
 { 0,1,2,3,4,5,6 }. These values taken in consecutive pairs create the univariate Nurbs elements. The latter is illustrated in the figure below.
 
 <p align="center">
-  <img src="../docs/Images/NurbsElement1D.png" width="400"/>
+  <img src="../Images/NurbsElement1D.png" width="400"/>
 </p>
 
 An example on how to generated a NurbsElement1D is shown in the code below.
@@ -31,7 +31,7 @@ element.AddControlPoints(elementControlPoints);
 An extension to two-dimensions is straight forward by tensor product of univariate elements as presented in the last section. The only diffence in this case is that four knots are needed to define an element. Their order is the following: (i,j) (i, j+1) (i+1, j) (i+1, j+1), where i,j are the univariate numbering of the knots per axis Ksi and Heta equivalently.
 
 <p align="center">
-  <img src="../docs/Images/NurbsElement2D.png" width="400"/>
+  <img src="../Images/NurbsElement2D.png" width="400"/>
 </p>
 
 ```csharp

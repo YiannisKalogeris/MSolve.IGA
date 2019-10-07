@@ -53,7 +53,8 @@ paraview.CreateParaview2DFile();
 ```
 
 The output of the paraview file is illustrated in the figure at the end of this example.
-![Paraview  cantilever](../docs/Images/QuadraticCantilever.png) 
+
+![Paraview  cantilever](../Images/QuadraticCantilever.png) 
 
 ## NURBS Beam3D
  The scond example is of a Beam 3D designed with NURBS. Once again the Isogeometric Reader is utilized to read the input file and create the model.
@@ -112,7 +113,8 @@ var paraview = new ParaviewNurbs3D(model, solver.LinearSystems[0].Solution, file
 paraview.CreateParaviewFile();
 ```
 In the following figure we see the output of the Paraview. 
-![Paraview  Beam 3D](../docs/Images/Beam3D.png)
+
+![Paraview  Beam 3D](../Images/Beam3D.png)
 
 ## T-Splines 2D
 
@@ -182,7 +184,8 @@ paraview.CreateParaview2DFile();
 ```
 
 The desired paraview visualization is shown in the figure below.
-![Paraview  Square shell](../docs/Images/SquareShell.png)
+
+![Paraview  Square shell](../Images/SquareShell.png)
 
 ## T-Spline Cantilever shell
 In this T-Spline example a smal cantilever is analyzed with T-Splines. The data are read from a .iga file exported from Autodesk T-Spline plugin for Rhino. 
@@ -238,4 +241,5 @@ paraview.CreateParaviewFile();
 ```
 
 The deflection of the shell cantilevers is shown using paraview in the figure below.
-![Paraview  TSpline Cantilever shell](../docs/Images/TSplineShell.png)
+
+![Paraview  TSpline Cantilever shell](../Images/TSplineShell.png)
